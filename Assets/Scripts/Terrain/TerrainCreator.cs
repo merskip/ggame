@@ -76,16 +76,14 @@ public class TerrainCreator : MonoBehaviour {
     }
 
     private void RemoveChunksIfOutOfRange(Chunk.Coords currentCoords) {
-        var chunkMap = manager.getChunkMap();
-        List<Chunk.Coords> chunkCoords = new List<Chunk.Coords>(chunkMap.Keys);
-
+        var chunkCoords = manager.LoadedChunksCoords;
         foreach (var coords in chunkCoords) {
-            if (ChunkIsOutOfRange(currentCoords, coords))
+            if (IsOutOfRange(currentCoords, coords))
                 manager.RemoveChunk(coords);
         }
     }
 
-    private bool ChunkIsOutOfRange(Chunk.Coords currentCoords, Chunk.Coords otherCoords) {
+    private bool IsOutOfRange(Chunk.Coords currentCoords, Chunk.Coords otherCoords) {
         float distanceX = Mathf.Abs(currentCoords.x - otherCoords.x);
         float distanceY = Mathf.Abs(currentCoords.y - otherCoords.y);
 

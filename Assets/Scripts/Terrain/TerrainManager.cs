@@ -41,6 +41,14 @@ public class TerrainManager : MonoBehaviour {
     private Dictionary<Chunk.Coords, Chunk> chunkMap;
     public TerrainGenerator generator;
 
+    public int ChunksCount {
+        get { return chunkMap.Count; }
+    }
+
+    public List<Chunk.Coords> LoadedChunksCoords {
+        get { return new List<Chunk.Coords>(chunkMap.Keys); }
+    }
+
     void Start() {
         chunkMap = new Dictionary<Chunk.Coords, Chunk>();
         chunkWidth = chunkPrefab.terrainData.size.x;
@@ -54,10 +62,6 @@ public class TerrainManager : MonoBehaviour {
         int x = (int) Mathf.Floor(position.x / chunkWidth);
         int y = (int) Mathf.Floor(position.z / chunkHeight);
         return new Chunk.Coords(x, y);
-    }
-
-    public Dictionary<Chunk.Coords, Chunk> getChunkMap() {
-        return chunkMap;
     }
 
     public bool ShowChunk(int x, int y) {
