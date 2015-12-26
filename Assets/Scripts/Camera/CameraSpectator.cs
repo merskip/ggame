@@ -29,8 +29,8 @@ public class CameraSpectator : MonoBehaviour {
             transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
         }
 
-        bool isFast = Input.GetKey(KeyCode.LeftShift);
-        
+        bool isFast = Input.GetButton("Run");
+
         transform.position += transform.forward * (isFast ? fastMoveSpeed : moveSpeed) * Input.GetAxis("Forward") * Time.deltaTime;
         transform.position += transform.right * (isFast ? fastMoveSpeed : moveSpeed) * Input.GetAxis("Aside") * Time.deltaTime;
         transform.position += transform.up * (isFast ? fastClimbSpeed : climbSpeed) * Input.GetAxis("Upward") * Time.deltaTime;

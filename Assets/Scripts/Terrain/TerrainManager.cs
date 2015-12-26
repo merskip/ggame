@@ -88,6 +88,11 @@ public class TerrainManager : MonoBehaviour {
         terrainChunk.transform.parent = gameObject.transform;
         terrainChunk.transform.name = string.Format("Chunk ({0}, {1})", coords.x, coords.y);
         terrainChunk.terrainData = Instantiate(terrainChunk.terrainData);
+
+        TerrainCollider collider = terrainChunk.GetComponent<TerrainCollider>();
+        if (collider != null)
+            collider.terrainData = terrainChunk.terrainData;
+
         return terrainChunk;
     }
 

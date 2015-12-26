@@ -37,13 +37,10 @@ public class TerrainCreator : MonoBehaviour {
     }
 
     void OnGUI() {
-        GUI.Label(new Rect(10, 10, 100, 20),
-            string.Format("Coords: ({0}, {1})", lastCoords.x, lastCoords.y));
-        GUI.Label(new Rect(10, 30, 100, 20),
-            string.Format("Chunks: {0}", manager.getChunkMap().Count));
-
-        GUI.Label(new Rect(10, 50, 100, 20),
-            string.Format("Rotate: {0:0.0}", focus.rotation.eulerAngles.y));
+        GUI.Label(new Rect(10, 10, 200, 20),
+            string.Format("Player coords: ({0}, {1})", lastCoords.x, lastCoords.y));
+        GUI.Label(new Rect(10, 30, 200, 20),
+            string.Format("Loaded chunks: {0}", manager.getChunkMap().Count));
     }
 
     void Update() {
