@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour {
                 move.y = jumpSpeed;
         }
 
-        move.y -= gravity;
+        move.y -= gravity * Time.deltaTime;
         controller.Move(move * Time.deltaTime);
     }
 

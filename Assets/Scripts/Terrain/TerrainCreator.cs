@@ -10,13 +10,21 @@ public class TerrainCreator : MonoBehaviour {
     public bool usePerlinNoiseGenerator = false;
 
     public Transform focus;
-    public int createRange = 1;
-    public int destoryRange = 5;
+    public int createRange = 6;
+    public int destoryRange = 8;
 
     private TerrainManager manager;
     private Chunk.Coords lastCoords;
 
     private Coroutine showChunksCoroutine;
+
+    public Chunk.Coords CurrentCoords {
+        get { return lastCoords; }
+    }
+
+    public TerrainManager TerrainManager {
+        get { return manager; }
+    }
 
     void Awake() {
         if (focus == null)
@@ -30,17 +38,6 @@ public class TerrainCreator : MonoBehaviour {
             generator.lacunarity = 2.5f;
             manager.generator = generator;
         }
-    }
-
-	void Start() {
-	    
-    }
-
-    void OnGUI() {
-        GUI.Label(new Rect(10, 10, 200, 20),
-            string.Format("Player coords: ({0}, {1})", lastCoords.x, lastCoords.y));
-        GUI.Label(new Rect(10, 30, 200, 20),
-            string.Format("Loaded chunks: {0}", manager.getChunkMap().Count));
     }
 
     void Update() {
@@ -76,7 +73,6 @@ public class TerrainCreator : MonoBehaviour {
                     yield return null;
             }
         }
-
     }
 
     private void RemoveChunksIfOutOfRange(Chunk.Coords currentCoords) {
@@ -84,12 +80,12 @@ public class TerrainCreator : MonoBehaviour {
         List<Chunk.Coords> chunkCoords = new List<Chunk.Coords>(chunkMap.Keys);
 
         foreach (var coords in chunkCoords) {
-            if (chunkIsOutOfRange(currentCoords, coords))
+            if (ChunkIsOutOfRange(currentCoords, coords))
                 manager.RemoveChunk(coords);
         }
     }
 
-    private bool chunkIsOutOfRange(Chunk.Coords currentCoords, Chunk.Coords otherCoords) {
+    private bool ChunkIsOutOfRange(Chunk.Coords currentCoords, Chunk.Coords otherCoords) {
         float distanceX = Mathf.Abs(currentCoords.x - otherCoords.x);
         float distanceY = Mathf.Abs(currentCoords.y - otherCoords.y);
 
