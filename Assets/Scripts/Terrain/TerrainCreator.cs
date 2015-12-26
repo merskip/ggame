@@ -17,6 +17,8 @@ public class TerrainCreator : MonoBehaviour {
     private Chunk.Coords lastCoords;
 
     private Coroutine showChunksCoroutine;
+    private List<Chunk.Coords> chunksToLoad;
+    private int chunksLoadedCount;
 
     public Chunk.Coords CurrentCoords {
         get { return lastCoords; }
@@ -24,6 +26,18 @@ public class TerrainCreator : MonoBehaviour {
 
     public TerrainManager TerrainManager {
         get { return manager; }
+    }
+
+    public bool IsLoadingChunks {
+        get { return chunksToLoad != null; }
+    }
+
+    public int ChunksToLoadCount {
+        get { return chunksToLoad != null ? chunksToLoad.Count : 0; }
+    }
+
+    public int ChunksLoadedCount {
+        get { return chunksLoadedCount; }
     }
 
     void Awake() {
@@ -60,18 +74,38 @@ public class TerrainCreator : MonoBehaviour {
         return manager.getChunkCoords(focus.position);
     }
 
-    private IEnumerator StartShowChunks(Chunk.Coords coords) {
+    private IEnumerator StartShowChunks(Chunk.Coords cuurentCoords) {
+        chunksToLoad = GetChunkCoordsToLoad(cuurentCoords);
+        chunksLoadedCount = 0;
+
+        foreach (var coords in chunksToLoad) {
+            manager.ShowChunk(coords);
+            chunksLoadedCount++;
+            yield return null;
+        }
+        chunksToLoad = null;
+        chunksLoadedCount = 0;
+    }
+
+    private List<Chunk.Coords> GetChunkCoordsToLoad(Chunk.Coords currentCoords) {
+        List<Chunk.Coords> list = new List<Chunk.Coords>();
         for (int x = 0; x < createRange; x++) {
             for (int y = 0; y < createRange - x; y++) {
-                if (manager.ShowChunk(coords.x + x, coords.y + y))
-                    yield return null;
-                if (manager.ShowChunk(coords.x - x, coords.y + y))
-                    yield return null;
-                if (manager.ShowChunk(coords.x + x, coords.y - y))
-                    yield return null;
-                if (manager.ShowChunk(coords.x - x, coords.y - y))
-                    yield return null;
+                AddUniquteCoords(list, currentCoords.x + x, currentCoords.y + y);
+                AddUniquteCoords(list, currentCoords.x - x, currentCoords.y + y);
+                AddUniquteCoords(list, currentCoords.x + x, currentCoords.y - y);
+                AddUniquteCoords(list, currentCoords.x - x, currentCoords.y - y);
             }
+        }
+
+        return list;
+    }
+
+    private void AddUniquteCoords(List<Chunk.Coords> list, int x, int y) {
+        var coords = new Chunk.Coords(x, y);
+        if (!list.Contains(coords)) {
+            if (!manager.LoadedChunksCoords.Contains(coords))
+                list.Add(coords);
         }
     }
 
