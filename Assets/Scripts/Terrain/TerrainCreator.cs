@@ -7,11 +7,27 @@ using System;
 [RequireComponent (typeof(TerrainManager))]
 public class TerrainCreator : MonoBehaviour {
 
-    public bool usePerlinNoiseGenerator = false;
+    public enum GeneratorType {
+        Plain,
+        Wave,
+        PerlinNoise
+    }
 
     public Transform focus;
     public int createRange = 6;
     public int destoryRange = 8;
+    
+    public GeneratorType generatorType;
+    
+    public TerrainGenerator TerrainGenerator {
+        set {
+            manager.generator = value;
+        }
+        get {
+            manager = GetComponent<TerrainManager>();
+            return manager.generator;
+        }
+    }
 
     private TerrainManager manager;
     private Chunk.Coords lastCoords;
@@ -45,13 +61,6 @@ public class TerrainCreator : MonoBehaviour {
             focus = Camera.main.transform;
 
         manager = GetComponent<TerrainManager>();
-
-        if (usePerlinNoiseGenerator) {
-            PerlinNoiseGenerator generator = new PerlinNoiseGenerator(0.8f, 1.0f);
-            generator.persistence = 0.3f;
-            generator.lacunarity = 2.5f;
-            manager.generator = generator;
-        }
     }
 
     void Update() {

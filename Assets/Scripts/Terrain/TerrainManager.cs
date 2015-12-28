@@ -38,8 +38,9 @@ public class TerrainManager : MonoBehaviour {
     private float chunkWidth;
     private float chunkHeight;
 
-    private Dictionary<Chunk.Coords, Chunk> chunkMap;
     public TerrainGenerator generator;
+
+    private Dictionary<Chunk.Coords, Chunk> chunkMap;
 
     public int ChunksCount {
         get { return chunkMap.Count; }
@@ -55,7 +56,7 @@ public class TerrainManager : MonoBehaviour {
         chunkHeight = chunkPrefab.terrainData.size.z;
 
         if (generator == null)
-            generator = new WaveGenerator(0.1f, 10.0f);
+            generator = (TerrainGenerator) ScriptableObject.CreateInstance(typeof(PlainGenerator));
     }
 
     public Chunk.Coords getChunkCoords(Vector3 position) {
@@ -82,7 +83,8 @@ public class TerrainManager : MonoBehaviour {
         chunk.coords = coords;
         chunk.terrain = terrainChunk;
         generator.GenerateChunk(chunk);
-        
+        chunk.terrain.Flush();
+
         chunkMap.Add(chunk.coords, chunk);
     }
 
@@ -91,7 +93,7 @@ public class TerrainManager : MonoBehaviour {
         Terrain terrainChunk = (Terrain) Instantiate(chunkPrefab, pos, Quaternion.identity);
         terrainChunk.transform.parent = gameObject.transform;
         terrainChunk.transform.name = string.Format("Chunk ({0}, {1})", coords.x, coords.y);
-        terrainChunk.terrainData = Instantiate(terrainChunk.terrainData);
+        terrainChunk.terrainData = Instantiate(chunkPrefab.terrainData);
 
         TerrainCollider collider = terrainChunk.GetComponent<TerrainCollider>();
         if (collider != null)
@@ -101,13 +103,24 @@ public class TerrainManager : MonoBehaviour {
     }
 
     public void RemoveChunk(Chunk.Coords coords) {
+        Chunk? chunkOrNull = GetChunk(coords);
+        if (chunkOrNull != null) {
+            Chunk chunk = (Chunk) chunkOrNull;
+            Destroy(chunk.terrain.gameObject);
+            Destroy(chunk.terrain.terrainData);
+            Destroy(chunk.terrain);
+            chunkMap.Remove(coords);
+        }
+    }
+
+    public Chunk? GetChunk(int x, int y) {
+        return GetChunk(new Chunk.Coords(x, y));
+    }
+
+    public Chunk? GetChunk(Chunk.Coords coords) {
         Chunk chunk;
-        if (!chunkMap.TryGetValue(coords, out chunk))
-            return;
-        
-        Destroy(chunk.terrain.gameObject);
-        Destroy(chunk.terrain.terrainData);
-        Destroy(chunk.terrain);
-        chunkMap.Remove(coords);
+        if (chunkMap.TryGetValue(coords, out chunk))
+            return chunk;
+        return null;
     }
 }

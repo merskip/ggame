@@ -328,7 +328,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 315463661}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 255, y: 80, z: 255}
+  m_LocalPosition: {x: 255, y: 255, z: 255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1592967549}
@@ -440,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 21864036, guid: 4f597cbe6397a3240947e2a79f25ad80, type: 2}
+  generator: {fileID: 1127586232}
 --- !u!4 &376648425
 Transform:
   m_ObjectHideFlags: 0
@@ -463,10 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518ddce398b973241adbde22931c00bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usePerlinNoiseGenerator: 1
-  focus: {fileID: 1592967549}
+  focus: {fileID: 315463665}
   createRange: 6
   destoryRange: 8
+  generatorType: 2
 --- !u!1 &1080736731
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +553,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0480e8266a3a90c41b357a6cddb9e481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1127586232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 0
+  amplitude: 1
+  frequency: 1
+  octaveCount: 8
+  persistence: 0.45
+  lacunarity: 2
 --- !u!1 &1252273554
 GameObject:
   m_ObjectHideFlags: 0
