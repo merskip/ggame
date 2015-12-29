@@ -38,6 +38,11 @@ public class TerrainManager : MonoBehaviour {
     private int _resoltion;
     public Material terrainMaterial;
 
+    public Texture2D splatTexture;
+    public Texture2D splatNormal;
+    public Vector2 splatSize = new Vector2(15.0f, 15.0f);
+    public Vector2 splatOffset = new Vector2(0.0f, 0.0f);
+
     public TerrainGenerator generator;
 
     public int resolution {
@@ -113,6 +118,17 @@ public class TerrainManager : MonoBehaviour {
         TerrainData data = new TerrainData();
         data.heightmapResolution = resolution;
         data.size = new Vector3(chunkSize.x, chunkSize.y, chunkSize.z);
+
+        
+        SplatPrototype defualtSplat = new SplatPrototype();
+        defualtSplat.texture = splatTexture;
+        defualtSplat.normalMap = splatNormal;
+        defualtSplat.tileSize = splatSize;
+        defualtSplat.tileOffset = splatOffset;
+        data.splatPrototypes = new SplatPrototype[] { defualtSplat };
+
+        data.alphamapResolution = resolution;
+
         return data;
     }
 
