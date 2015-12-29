@@ -439,7 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11785022581a394d9f9578fd8ae0a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkPrefab: {fileID: 21864036, guid: 4f597cbe6397a3240947e2a79f25ad80, type: 2}
+  chunkSize: {x: 512, y: 255, z: 512}
+  _resoltion: 65
+  terrainMaterial: {fileID: 2100000, guid: 9b50c5c34f6cf9349b674a198049c14f, type: 2}
   generator: {fileID: 1127586232}
 --- !u!4 &376648425
 Transform:

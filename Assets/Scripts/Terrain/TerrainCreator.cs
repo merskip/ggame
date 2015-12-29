@@ -80,7 +80,7 @@ public class TerrainCreator : MonoBehaviour {
     }
 
     private Chunk.Coords getCurrentChunkCoords() {
-        return manager.getChunkCoords(focus.position);
+        return manager.ToChunkCoords(focus.position);
     }
 
     private IEnumerator StartShowChunks(Chunk.Coords cuurentCoords) {

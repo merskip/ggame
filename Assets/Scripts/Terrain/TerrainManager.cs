@@ -33,12 +33,24 @@ public struct Chunk {
 
 public class TerrainManager : MonoBehaviour {
 
-    public Terrain chunkPrefab;
-
-    private float chunkWidth;
-    private float chunkHeight;
+    public Vector3 chunkSize;
+    [SerializeField]
+    private int _resoltion;
+    public Material terrainMaterial;
 
     public TerrainGenerator generator;
+
+    public int resolution {
+        get { return _resoltion; }
+        set {
+            float log2 = Mathf.Log(value - 1, 2);
+            if (log2 % 1.0f != 0) {
+                int c = Mathf.CeilToInt(log2);
+                value = (1 << c) + 1;
+            }
+            _resoltion = Mathf.Max(value, 33);
+        }
+    }
 
     private Dictionary<Chunk.Coords, Chunk> chunkMap;
 
@@ -50,18 +62,16 @@ public class TerrainManager : MonoBehaviour {
         get { return new List<Chunk.Coords>(chunkMap.Keys); }
     }
 
-    void Start() {
+    void Awake() {
         chunkMap = new Dictionary<Chunk.Coords, Chunk>();
-        chunkWidth = chunkPrefab.terrainData.size.x;
-        chunkHeight = chunkPrefab.terrainData.size.z;
 
         if (generator == null)
             generator = (TerrainGenerator) ScriptableObject.CreateInstance(typeof(PlainGenerator));
     }
 
-    public Chunk.Coords getChunkCoords(Vector3 position) {
-        int x = (int) Mathf.Floor(position.x / chunkWidth);
-        int y = (int) Mathf.Floor(position.z / chunkHeight);
+    public Chunk.Coords ToChunkCoords(Vector3 position) {
+        int x = (int) Mathf.Floor(position.x / chunkSize.x);
+        int y = (int) Mathf.Floor(position.z / chunkSize.z);
         return new Chunk.Coords(x, y);
     }
 
@@ -78,10 +88,10 @@ public class TerrainManager : MonoBehaviour {
     }
     
     private void CreateChunk(Chunk.Coords coords) {
-        Terrain terrainChunk = CreateTerrainForChunk(coords);
+        Terrain terrain = CreateTerrainForChunk(coords);
         Chunk chunk = new Chunk();
         chunk.coords = coords;
-        chunk.terrain = terrainChunk;
+        chunk.terrain = terrain;
         generator.GenerateChunk(chunk);
         chunk.terrain.Flush();
 
@@ -89,17 +99,32 @@ public class TerrainManager : MonoBehaviour {
     }
 
     private Terrain CreateTerrainForChunk(Chunk.Coords coords) {
-        Vector3 pos = new Vector3(chunkWidth * coords.x, 0.0f, chunkHeight * coords.y);
-        Terrain terrainChunk = (Terrain) Instantiate(chunkPrefab, pos, Quaternion.identity);
-        terrainChunk.transform.parent = gameObject.transform;
-        terrainChunk.transform.name = string.Format("Chunk ({0}, {1})", coords.x, coords.y);
-        terrainChunk.terrainData = Instantiate(chunkPrefab.terrainData);
+        TerrainData terrainData = CreateAndSetupTerrainData();
+        
+        GameObject terrainObject = Terrain.CreateTerrainGameObject(terrainData);
+        terrainObject.transform.position = new Vector3(chunkSize.x * coords.x, 0.0f, chunkSize.z * coords.y);
+        terrainObject.transform.parent = gameObject.transform;
+        terrainObject.transform.name = string.Format("Chunk ({0}, {1})", coords.x, coords.y);
 
-        TerrainCollider collider = terrainChunk.GetComponent<TerrainCollider>();
-        if (collider != null)
-            collider.terrainData = terrainChunk.terrainData;
+        return GetAndSetupTerrain(terrainObject);
+    }
 
-        return terrainChunk;
+    private TerrainData CreateAndSetupTerrainData() {
+        TerrainData data = new TerrainData();
+        data.heightmapResolution = resolution;
+        data.size = new Vector3(chunkSize.x, chunkSize.y, chunkSize.z);
+        return data;
+    }
+
+    private Terrain GetAndSetupTerrain(GameObject terrainObject) {
+        Terrain terrain = terrainObject.GetComponent<Terrain>();
+        terrain.heightmapPixelError = 1;
+        if (terrainMaterial != null) {
+            terrain.materialType = Terrain.MaterialType.Custom;
+            terrain.materialTemplate = terrainMaterial;
+        }
+
+        return terrain;
     }
 
     public void RemoveChunk(Chunk.Coords coords) {
