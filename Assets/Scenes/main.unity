@@ -474,8 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focus: {fileID: 315463665}
-  createRange: 6
-  destoryRange: 8
+  createRange: 4
+  destoryRange: 4
   generatorType: 2
 --- !u!1 &1080736731
 GameObject:
@@ -579,6 +579,20 @@ MonoBehaviour:
   octaveCount: 8
   persistence: 0.45
   lacunarity: 2
+  grassSplat:
+    texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
+    normalMap: {fileID: 0}
+    tileSize: {x: 15, y: 15}
+    tileOffset: {x: 0, y: 0}
+    metallic: 0
+    smoothness: 0
+  snowSplat:
+    texture: {fileID: 2800000, guid: 755d356ccea92fe489dcc932491b62b1, type: 3}
+    normalMap: {fileID: 0}
+    tileSize: {x: 15, y: 15}
+    tileOffset: {x: 0, y: 0}
+    metallic: 0
+    smoothness: 0
   snowStrength:
     serializedVersion: 2
     m_Curve:
@@ -600,20 +614,30 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  grassSplat:
-    texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
-    normalMap: {fileID: 0}
-    tileSize: {x: 15, y: 15}
-    tileOffset: {x: 0, y: 0}
-    metallic: 0
-    smoothness: 0
-  snowSplat:
-    texture: {fileID: 2800000, guid: 755d356ccea92fe489dcc932491b62b1, type: 3}
-    normalMap: {fileID: 0}
-    tileSize: {x: 15, y: 15}
-    tileOffset: {x: 0, y: 0}
-    metallic: 0
-    smoothness: 0
+  treePrefab: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
+  treesStrength:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0.4
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.55
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
+    - time: 0.6
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  treeSizeMin: 0.45
+  treeSizeMax: 0.85
 --- !u!1 &1252273554
 GameObject:
   m_ObjectHideFlags: 0

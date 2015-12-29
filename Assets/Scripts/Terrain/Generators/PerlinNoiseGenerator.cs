@@ -8,21 +8,28 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     public int seed = 0;
     public float amplitude = 1.0f;
     public float frequency = 1.0f;
-
     public int octaveCount = 8;
     public float persistence = 0.45f;
     public float lacunarity = 2.0f;
-
-    public AnimationCurve snowStrength = new AnimationCurve();
     
     public SplatPrototypeData grassSplat = new SplatPrototypeData();
     public SplatPrototypeData snowSplat = new SplatPrototypeData();
+
+    public AnimationCurve snowStrength = new AnimationCurve();
+
+    public GameObject treePrefab;
+    public AnimationCurve treesStrength = new AnimationCurve();
+    public float treeSizeMin = 0.5f;
+    public float treeSizeMax = 1.0f;
 
     public override void GenerateChunk(Chunk chunk) {
         base.GenerateChunk(chunk);
 
         SetupSplats();
         PaintTexture();
+
+        SetupTrees();
+        PlaceTrees();
     }
 
     protected override void GenerateHeightmap() {
@@ -44,7 +51,7 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         }
     }
 
-    protected void SetupSplats() {
+    private void SetupSplats() {
         if (grassSplat.texture == null)
             return;
 
@@ -57,7 +64,7 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         data.splatPrototypes = splats;
     }
 
-    protected void PaintTexture() {
+    private void PaintTexture() {
         if (data.splatPrototypes.Length < 2)
             return;
 
@@ -73,5 +80,50 @@ public class PerlinNoiseGenerator : TerrainGenerator {
             }
         }
         data.SetAlphamaps(0, 0, alphamap);
+    }
+
+    private void SetupTrees() {
+        if (treePrefab != null) {
+            TreePrototype treePrototype = new TreePrototype();
+            treePrototype.prefab = treePrefab;
+
+            data.treePrototypes = new TreePrototype[] { treePrototype };
+        }
+    }
+
+    private void PlaceTrees() {
+        if (data.treePrototypes.Length == 0)
+            return;
+        
+        var r = new System.Random(seed);
+
+        float xMaxMove = 1.0f / width;
+        float yMaxMove = 1.0f / height;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                float h = heightmap[y, x];
+                float strengh = treesStrength.Evaluate(h);
+                bool placeTree = r.NextDouble() <= strengh;
+                if (placeTree) {
+                    float xCoord = (float) x / width;
+                    float yCoord = (float) y / height;
+
+                    float xMove = (float) r.NextDouble() % xMaxMove;
+                    float yMove = (float) r.NextDouble() % yMaxMove;
+
+                    float size = (float) r.NextDouble() * (treeSizeMax - treeSizeMin) + treeSizeMin;
+
+                    TreeInstance tree = new TreeInstance();
+                    tree.prototypeIndex = 0;
+                    tree.heightScale = size;
+                    tree.widthScale = size;
+                    tree.rotation = (float) r.NextDouble() * 2 * Mathf.PI;
+                    tree.color = Color.white;
+                    tree.position = new Vector3(xCoord + xMove, 0.0f, yCoord + yMove);
+                    chunk.terrain.AddTreeInstance(tree);
+                }
+            }
+        }
     }
 }

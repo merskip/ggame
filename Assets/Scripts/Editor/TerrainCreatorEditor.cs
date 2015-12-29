@@ -104,6 +104,14 @@ class TerrainCreatorEditor : Editor {
         GUILayout.EndHorizontal();
 
         noise.snowStrength = EditorGUILayout.CurveField("Snow Strenght", noise.snowStrength);
+
+        GUILayout.Label("Trees", EditorStyles.boldLabel);
+        noise.treePrefab = (GameObject)
+            EditorGUILayout.ObjectField("Tree prefab", noise.treePrefab, typeof(GameObject), false);
+        noise.treesStrength = EditorGUILayout.CurveField("Trees Strenght", noise.treesStrength);
+
+        EditorGUILayout.MinMaxSlider(new GUIContent("Trees size"), ref noise.treeSizeMin, ref noise.treeSizeMax, 0.0f, 1.0f);
+
     }
 
     private T GetIntanceOrCreateGenerator<T>() where T : TerrainGenerator {
