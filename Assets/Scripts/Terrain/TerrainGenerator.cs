@@ -12,7 +12,7 @@ public abstract class TerrainGenerator : ScriptableObject {
     protected int width;
     protected int height;
 
-    public void GenerateChunk(Chunk chunk) {
+    public virtual void GenerateChunk(Chunk chunk) {
         this.chunk = chunk;
         data = chunk.terrain.terrainData;
         width = data.heightmapWidth;
@@ -22,16 +22,9 @@ public abstract class TerrainGenerator : ScriptableObject {
 
         GenerateHeightmap();
         data.SetHeights(0, 0, heightmap);
-
-        SetupSplats();
-        PaintTexture();
     }
 
     protected abstract void GenerateHeightmap();
-
-    protected virtual void SetupSplats() { }
-
-    protected virtual void PaintTexture() { }
 
 	protected float getCoordX(int x) {
         return chunk.coords.x + (float) x / (width - 1);

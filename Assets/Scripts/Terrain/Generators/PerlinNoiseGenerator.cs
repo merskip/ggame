@@ -18,6 +18,13 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     public SplatPrototypeData grassSplat = new SplatPrototypeData();
     public SplatPrototypeData snowSplat = new SplatPrototypeData();
 
+    public override void GenerateChunk(Chunk chunk) {
+        base.GenerateChunk(chunk);
+
+        SetupSplats();
+        PaintTexture();
+    }
+
     protected override void GenerateHeightmap() {
         PinkNoise noise = new PinkNoise(seed);
         noise.Frequency = frequency;
@@ -37,7 +44,7 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         }
     }
 
-    protected override void SetupSplats() {
+    protected void SetupSplats() {
         if (grassSplat.texture == null)
             return;
 
@@ -50,7 +57,7 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         data.splatPrototypes = splats;
     }
 
-    protected override void PaintTexture() {
+    protected void PaintTexture() {
         if (data.splatPrototypes.Length < 2)
             return;
 
