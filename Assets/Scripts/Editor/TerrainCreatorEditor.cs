@@ -84,6 +84,29 @@ class TerrainCreatorEditor : Editor {
         noise.octaveCount = EditorGUILayout.IntField("Octave count", noise.octaveCount);
         noise.persistence = EditorGUILayout.FloatField("Persistence", noise.persistence);
         noise.lacunarity = EditorGUILayout.FloatField("Lacunarity", noise.lacunarity);
+
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+        
+        GUILayout.BeginVertical();
+        GUILayout.Label("Grass");
+        if (GUILayout.Button(noise.grassSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(noise.grassSplat);
+        GUILayout.EndVertical();
+
+        GUILayout.BeginVertical();
+        GUILayout.Label("Snow");
+        if (GUILayout.Button(noise.snowSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(noise.snowSplat);
+        GUILayout.EndVertical();
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
+        noise.endGrass = EditorGUILayout.Slider("End grass", noise.endGrass, 0.0f, 1.0f);
+        noise.startSnow = EditorGUILayout.Slider("Start snow", noise.startSnow, 0.0f, 1.0f);
+        if (noise.startSnow < noise.endGrass)
+            noise.startSnow = noise.endGrass;
     }
 
     private T GetIntanceOrCreateGenerator<T>() where T : TerrainGenerator {
