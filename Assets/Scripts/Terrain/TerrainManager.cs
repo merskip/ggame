@@ -30,6 +30,27 @@ public struct Chunk {
     }
 }
 
+[Serializable]
+public class SplatPrototypeData {
+
+    public Texture2D texture;
+    public Texture2D normalMap;
+    public Vector2 tileSize = new Vector2(15.0f, 15.0f);
+    public Vector2 tileOffset;
+    public float metallic = 0.0f;
+    public float smoothness = 0.0f;
+
+    public SplatPrototype toSplatPrototype() {
+        var splat = new SplatPrototype();
+        splat.texture = texture;
+        splat.normalMap = normalMap;
+        splat.tileSize = tileSize;
+        splat.tileOffset = tileOffset;
+        splat.metallic = metallic;
+        splat.smoothness = smoothness;
+        return splat;
+    }
+}
 
 public class TerrainManager : MonoBehaviour {
 
@@ -37,11 +58,7 @@ public class TerrainManager : MonoBehaviour {
     [SerializeField]
     private int _resoltion;
     public Material terrainMaterial;
-
-    public Texture2D splatTexture;
-    public Texture2D splatNormal;
-    public Vector2 splatSize = new Vector2(15.0f, 15.0f);
-    public Vector2 splatOffset = new Vector2(0.0f, 0.0f);
+    public SplatPrototypeData defaultSplat = new SplatPrototypeData();
 
     public TerrainGenerator generator;
 
@@ -119,13 +136,10 @@ public class TerrainManager : MonoBehaviour {
         data.heightmapResolution = resolution;
         data.size = new Vector3(chunkSize.x, chunkSize.y, chunkSize.z);
 
-        
-        SplatPrototype defualtSplat = new SplatPrototype();
-        defualtSplat.texture = splatTexture;
-        defualtSplat.normalMap = splatNormal;
-        defualtSplat.tileSize = splatSize;
-        defualtSplat.tileOffset = splatOffset;
-        data.splatPrototypes = new SplatPrototype[] { defualtSplat };
+        if (this.defaultSplat.texture != null) {
+            SplatPrototype defaultSplat = this.defaultSplat.toSplatPrototype();
+            data.splatPrototypes = new SplatPrototype[] { defaultSplat };
+        }
 
         data.alphamapResolution = resolution;
 

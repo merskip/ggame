@@ -23,45 +23,18 @@ class TerrainManagerEditor : Editor {
         manager.terrainMaterial = (Material)
             EditorGUILayout.ObjectField("Material", manager.terrainMaterial, typeof(Material), false);
 
-        DrawDefaultSplat();
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Default texture");
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button(new GUIContent(" Edit splat...", manager.defaultSplat.texture), GUILayout.Height(32))) {
+            SplatPrototypeEditor.Show(manager.defaultSplat);
+        }
+        GUILayout.EndHorizontal();
 
         if (GUI.changed) {
             EditorUtility.SetDirty(manager);
             serializedObject.ApplyModifiedProperties();
         }
     }
-    
-    private void DrawDefaultSplat() {
-        GUILayout.Label("Default splat", EditorStyles.boldLabel);
-        EditorGUILayout.BeginHorizontal();
 
-        EditorGUILayout.BeginVertical();
-        {
-            GUILayout.Label("Texture");
-            manager.splatTexture = (Texture2D)
-                EditorGUILayout.ObjectField("", manager.splatTexture, typeof(Texture2D), false, GUILayout.Width(64));
-        }
-        EditorGUILayout.EndVertical();
-
-        EditorGUILayout.BeginVertical();
-        {
-            GUILayout.Label("Normal");
-            manager.splatNormal = (Texture2D)
-                EditorGUILayout.ObjectField("", manager.splatNormal, typeof(Texture2D), false, GUILayout.Width(64));
-        }
-        EditorGUILayout.EndVertical();
-
-        EditorGUILayout.BeginVertical();
-        {
-            GUILayout.Label("Size");
-            manager.splatSize = EditorGUILayout.Vector2Field("", manager.splatSize);
-
-            GUILayout.Label("Ofsset");
-            manager.splatOffset = EditorGUILayout.Vector2Field("", manager.splatOffset);
-        }
-        EditorGUILayout.EndVertical();
-
-        EditorGUILayout.EndHorizontal();
-    }
 }
-

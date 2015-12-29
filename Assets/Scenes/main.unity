@@ -442,6 +442,13 @@ MonoBehaviour:
   chunkSize: {x: 512, y: 255, z: 512}
   _resoltion: 65
   terrainMaterial: {fileID: 2100000, guid: 9b50c5c34f6cf9349b674a198049c14f, type: 2}
+  defaultSplat:
+    texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+    normalMap: {fileID: 0}
+    tileSize: {x: 16, y: 16}
+    tileOffset: {x: 0, y: 0}
+    metallic: 0
+    smoothness: 0
   splatTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
   splatNormal: {fileID: 0}
   splatSize: {x: 15, y: 15}
