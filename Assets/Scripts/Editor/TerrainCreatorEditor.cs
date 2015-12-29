@@ -84,8 +84,8 @@ class TerrainCreatorEditor : Editor {
         noise.octaveCount = EditorGUILayout.IntField("Octave count", noise.octaveCount);
         noise.persistence = EditorGUILayout.FloatField("Persistence", noise.persistence);
         noise.lacunarity = EditorGUILayout.FloatField("Lacunarity", noise.lacunarity);
-
-        GUILayout.Space(10);
+        
+        GUILayout.Label("Textures", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         
         GUILayout.BeginVertical();
@@ -103,10 +103,7 @@ class TerrainCreatorEditor : Editor {
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
-        noise.endGrass = EditorGUILayout.Slider("End grass", noise.endGrass, 0.0f, 1.0f);
-        noise.startSnow = EditorGUILayout.Slider("Start snow", noise.startSnow, 0.0f, 1.0f);
-        if (noise.startSnow < noise.endGrass)
-            noise.startSnow = noise.endGrass;
+        noise.snowStrength = EditorGUILayout.CurveField("Snow Strenght", noise.snowStrength);
     }
 
     private T GetIntanceOrCreateGenerator<T>() where T : TerrainGenerator {

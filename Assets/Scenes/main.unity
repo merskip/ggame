@@ -579,8 +579,27 @@ MonoBehaviour:
   octaveCount: 8
   persistence: 0.45
   lacunarity: 2
-  endGrass: 0.5
-  startSnow: 0.8
+  snowStrength:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 31
+    - time: 0.5
+      value: 0
+      inSlope: 1.6666666
+      outSlope: 1.6666666
+      tangentMode: 10
+    - time: 0.8
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   grassSplat:
     texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
     normalMap: {fileID: 0}

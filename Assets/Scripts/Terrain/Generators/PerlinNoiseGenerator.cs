@@ -13,9 +13,8 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     public float persistence = 0.45f;
     public float lacunarity = 2.0f;
 
-    public float endGrass = 0.6f;
-    public float startSnow = 0.9f;
-
+    public AnimationCurve snowStrength = new AnimationCurve();
+    
     public SplatPrototypeData grassSplat = new SplatPrototypeData();
     public SplatPrototypeData snowSplat = new SplatPrototypeData();
 
@@ -59,13 +58,8 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
 
-                float snow = 0.0f;
-
-                float h = heightmap[x,y];
-                if (h > startSnow)
-                    snow = 1.0f;
-                else if (h > endGrass)
-                    snow = (h - endGrass) / (startSnow - endGrass);
+                float h = heightmap[x, y];
+                float snow = snowStrength.Evaluate(h);
 
                 alphamap[x, y, 0] = 1.0f - snow;
                 alphamap[x, y, 1] = snow;
