@@ -32,7 +32,8 @@ public class PerlinNoiseGenerator : TerrainGenerator {
                 float yCoord = getCoordY(y);
 
                 float v = noise.GetValue(xCoord, yCoord, 0.0f);
-                heightmap[y, x] = Mathf.Clamp((v + 1.2f) / 2.4f * amplitude, 0.0f, 1.0f);
+                v = (v + 1.5f) / 3.0f * amplitude;
+                heightmap[y, x] = Mathf.Clamp(v, 0.0f, 1.0f);
             }
         }
     }
