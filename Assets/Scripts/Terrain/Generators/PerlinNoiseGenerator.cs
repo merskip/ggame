@@ -22,33 +22,49 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     public float treeSizeMin = 0.5f;
     public float treeSizeMax = 1.0f;
 
-    public override void GenerateChunk(Chunk chunk) {
-        base.GenerateChunk(chunk);
+    private PinkNoise noise;
 
-        SetupSplats();
-        PaintTexture();
+    private float[,,] alphamap;
 
-        SetupTrees();
-        PlaceTrees();
-    }
+    private System.Random r;
+    private float xMaxMove;
+    private float yMaxMove;
 
-    protected override void GenerateHeightmap() {
-        PinkNoise noise = new PinkNoise(seed);
+    protected override void OnBeforeGenerate() {
+        noise = new PinkNoise(seed);
         noise.Frequency = frequency;
         noise.OctaveCount = octaveCount;
         noise.Persistence = persistence;
         noise.Lacunarity = lacunarity;
 
+        SetupSplats();
+        SetupTrees();
+    }
+
+    protected override void GenerateHeightmap() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                float xCoord = getCoordX(x);
-                float yCoord = getCoordY(y);
-
-                float v = noise.GetValue(xCoord, yCoord, 0.0f);
-                v = (v + 1.5f) / 3.0f * amplitude;
-                heightmap[y, x] = Mathf.Clamp(v, 0.0f, 1.0f);
+                float h = GetHeightAt(x, y);
+                heightmap[y, x] = h;
+                
+                PaintTexture(x, y, h);
+                PlaceTree(x, y, h);
             }
         }
+    }
+
+    protected override void OnAfterGenerate() {
+        if (alphamap != null)
+            data.SetAlphamaps(0, 0, alphamap);
+    }
+
+    private float GetHeightAt(int x, int y) {
+        float xCoord = getCoordX(x);
+        float yCoord = getCoordY(y);
+        float h = noise.GetValue(xCoord, yCoord, 0.0f);
+        h = (h + 1.5f) / 3.0f * amplitude;
+        h = Mathf.Clamp(h, 0.0f, 1.0f);
+        return h;
     }
 
     private void SetupSplats() {
@@ -62,68 +78,55 @@ public class PerlinNoiseGenerator : TerrainGenerator {
             splats[1] = snowSplat.toSplatPrototype();
 
         data.splatPrototypes = splats;
+        alphamap = data.GetAlphamaps(0, 0, width, height);
     }
 
-    private void PaintTexture() {
+    private void PaintTexture(int x, int y, float h) {
         if (data.splatPrototypes.Length < 2)
             return;
 
-        float[,,] alphamap = data.GetAlphamaps(0, 0, width, height);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        float snow = snowStrength.Evaluate(h);
 
-                float h = heightmap[x, y];
-                float snow = snowStrength.Evaluate(h);
-
-                alphamap[x, y, 0] = 1.0f - snow;
-                alphamap[x, y, 1] = snow;
-            }
-        }
-        data.SetAlphamaps(0, 0, alphamap);
+        alphamap[y, x, 0] = 1.0f - snow;
+        alphamap[y, x, 1] = snow;
     }
 
     private void SetupTrees() {
-        if (treePrefab != null) {
-            TreePrototype treePrototype = new TreePrototype();
-            treePrototype.prefab = treePrefab;
+        if (treePrefab == null)
+            return;
 
-            data.treePrototypes = new TreePrototype[] { treePrototype };
-        }
+        TreePrototype treePrototype = new TreePrototype();
+        treePrototype.prefab = treePrefab;
+
+        data.treePrototypes = new TreePrototype[] { treePrototype };
+        xMaxMove = 1.0f / width;
+        yMaxMove = 1.0f / height;
+        r = new System.Random(seed);
     }
 
-    private void PlaceTrees() {
+    private void PlaceTree(int x, int y, float h) {
         if (data.treePrototypes.Length == 0)
             return;
-        
-        var r = new System.Random(seed);
 
-        float xMaxMove = 1.0f / width;
-        float yMaxMove = 1.0f / height;
+        float strengh = treesStrength.Evaluate(h);
+        bool placeTree = r.NextDouble() <= strengh;
+        if (placeTree) {
+            float xCoord = (float) x / width;
+            float yCoord = (float) y / height;
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                float h = heightmap[y, x];
-                float strengh = treesStrength.Evaluate(h);
-                bool placeTree = r.NextDouble() <= strengh;
-                if (placeTree) {
-                    float xCoord = (float) x / width;
-                    float yCoord = (float) y / height;
+            float xMove = (float) r.NextDouble() % xMaxMove;
+            float yMove = (float) r.NextDouble() % yMaxMove;
 
-                    float xMove = (float) r.NextDouble() % xMaxMove;
-                    float yMove = (float) r.NextDouble() % yMaxMove;
+            float size = (float) r.NextDouble() * (treeSizeMax - treeSizeMin) + treeSizeMin;
 
-                    float size = (float) r.NextDouble() * (treeSizeMax - treeSizeMin) + treeSizeMin;
-
-                    TreeInstance tree = new TreeInstance();
-                    tree.prototypeIndex = 0;
-                    tree.heightScale = size;
-                    tree.widthScale = size;
-                    tree.rotation = (float) r.NextDouble() * 2 * Mathf.PI;
-                    tree.color = Color.white;
-                    tree.position = new Vector3(xCoord + xMove, 0.0f, yCoord + yMove);
-                    chunk.terrain.AddTreeInstance(tree);
-                }
-            }
+            TreeInstance tree = new TreeInstance();
+            tree.prototypeIndex = 0;
+            tree.heightScale = size;
+            tree.widthScale = size;
+            tree.rotation = (float) r.NextDouble() * 2 * Mathf.PI;
+            tree.color = Color.white;
+            tree.position = new Vector3(xCoord + xMove, 0.0f, yCoord + yMove);
+            chunk.terrain.AddTreeInstance(tree);
         }
     }
 }

@@ -20,13 +20,19 @@ public abstract class TerrainGenerator : ScriptableObject {
 
         heightmap = new float[height, width];
 
+        OnBeforeGenerate();
         GenerateHeightmap();
         data.SetHeights(0, 0, heightmap);
+        OnAfterGenerate();
     }
+
+    protected virtual void OnBeforeGenerate() { }
 
     protected abstract void GenerateHeightmap();
 
-	protected float getCoordX(int x) {
+    protected virtual void OnAfterGenerate() { }
+
+    protected float getCoordX(int x) {
         return chunk.coords.x + (float) x / (width - 1);
     }
 
