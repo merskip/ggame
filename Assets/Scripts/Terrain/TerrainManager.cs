@@ -97,6 +97,19 @@ public class TerrainManager : MonoBehaviour {
         return new Chunk.Coords(x, y);
     }
 
+    public Chunk GetChunk(int x, int y) {
+        return GetChunk(new Chunk.Coords(x, y));
+    }
+
+    public Chunk GetChunk(Chunk.Coords coords) {
+        Chunk? chunkOrNull = TryGetChunk(coords);
+        if (chunkOrNull != null)
+            return (Chunk) chunkOrNull;
+
+        ShowChunk(coords);
+        return (Chunk) TryGetChunk(coords);
+    }
+
     public bool ShowChunk(int x, int y) {
         return ShowChunk(new Chunk.Coords(x, y));
     }
@@ -158,7 +171,7 @@ public class TerrainManager : MonoBehaviour {
     }
 
     public void RemoveChunk(Chunk.Coords coords) {
-        Chunk? chunkOrNull = GetChunk(coords);
+        Chunk? chunkOrNull = TryGetChunk(coords);
         if (chunkOrNull != null) {
             Chunk chunk = (Chunk) chunkOrNull;
             Destroy(chunk.terrain.gameObject);
@@ -168,11 +181,11 @@ public class TerrainManager : MonoBehaviour {
         }
     }
 
-    public Chunk? GetChunk(int x, int y) {
-        return GetChunk(new Chunk.Coords(x, y));
+    public Chunk? TryGetChunk(int x, int y) {
+        return TryGetChunk(new Chunk.Coords(x, y));
     }
 
-    public Chunk? GetChunk(Chunk.Coords coords) {
+    public Chunk? TryGetChunk(Chunk.Coords coords) {
         Chunk chunk;
         if (chunkMap.TryGetValue(coords, out chunk))
             return chunk;
