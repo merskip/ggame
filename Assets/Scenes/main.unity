@@ -847,6 +847,6 @@ MonoBehaviour:
   - {fileID: 146748610}
   - {fileID: 1080736733}
   backgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 1}
-  barSize: {x: 250, y: 5}
+  barSize: {x: 250, y: 2}
   barForeground: {r: 0.38039216, g: 0.43529412, b: 0.48235294, a: 1}
   barBackground: {r: 0.05882353, g: 0.11764706, b: 0.16862746, a: 1}
