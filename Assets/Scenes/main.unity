@@ -474,8 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focus: {fileID: 315463665}
-  createRange: 4
-  destoryRange: 4
+  createRange: 5
+  destoryRange: 5
   generatorType: 2
 --- !u!1 &1080736731
 GameObject:
@@ -711,6 +711,7 @@ GameObject:
   - 92: {fileID: 1592967547}
   - 124: {fileID: 1592967546}
   - 81: {fileID: 1592967545}
+  - 114: {fileID: 1592967550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -780,8 +781,37 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1592967544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 315463665}
   m_RootOrder: 0
+--- !u!114 &1592967550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592967544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd70d448b18cfbc46af26466f752332c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualizeFocus: 0
+  focalLength: 0
+  focalSize: 0.8
+  aperture: 0.5
+  focalTransform: {fileID: 0}
+  maxBlurSize: 2
+  highResolution: 0
+  blurType: 0
+  blurSampleCount: 0
+  nearBlur: 0
+  foregroundOverlap: 0.1
+  dofHdrShader: {fileID: 4800000, guid: acd613035ff3e455e8abf23fdc8c8c24, type: 3}
+  dx11BokehShader: {fileID: 4800000, guid: d8e82664aa8686642a424c88ab10164a, type: 3}
+  dx11BokehThreshold: 0.5
+  dx11SpawnHeuristic: 0.0875
+  dx11BokehTexture: {fileID: 0}
+  dx11BokehScale: 1.2
+  dx11BokehIntensity: 2.5
