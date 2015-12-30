@@ -712,6 +712,7 @@ GameObject:
   - 124: {fileID: 1592967546}
   - 81: {fileID: 1592967545}
   - 114: {fileID: 1592967550}
+  - 114: {fileID: 1592967551}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -815,3 +816,23 @@ MonoBehaviour:
   dx11BokehTexture: {fileID: 0}
   dx11BokehScale: 1.2
   dx11BokehIntensity: 2.5
+--- !u!114 &1592967551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1592967544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be19e35938334864a9d396ba9df562e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onlyFirstLoading: 0
+  forFreezingComponent:
+  - {fileID: 315463666}
+  - {fileID: 146748610}
+  - {fileID: 1080736733}
+  backgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 1}
+  barSize: {x: 250, y: 5}
+  barForeground: {r: 0.38039216, g: 0.43529412, b: 0.48235294, a: 1}
+  barBackground: {r: 0.05882353, g: 0.11764706, b: 0.16862746, a: 1}
