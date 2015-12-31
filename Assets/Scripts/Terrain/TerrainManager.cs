@@ -57,6 +57,9 @@ public class TerrainManager : MonoBehaviour {
     public Vector3 chunkSize;
     [SerializeField]
     private int _resoltion;
+    public int pixelError = 8;
+    public bool setupsNeighbors = true;
+
     public Material terrainMaterial;
     public SplatPrototypeData defaultSplat = new SplatPrototypeData();
 
@@ -131,6 +134,35 @@ public class TerrainManager : MonoBehaviour {
         chunk.terrain.Flush();
 
         chunkMap.Add(chunk.coords, chunk);
+
+        if (setupsNeighbors) {
+            SetupNeighbors(chunk.coords.x, chunk.coords.y);
+            SetupNeighbors(chunk.coords.x + 1, chunk.coords.y);
+            SetupNeighbors(chunk.coords.x, chunk.coords.y + 1);
+            SetupNeighbors(chunk.coords.x - 1, chunk.coords.y);
+            SetupNeighbors(chunk.coords.x, chunk.coords.y - 1);
+        }
+    }
+
+    private void SetupNeighbors(int x, int y) {
+        Chunk.Coords coords = new Chunk.Coords(x, y);
+        Chunk? chunk = TryGetChunk(x, y);
+        if (chunk == null)
+            return;
+
+        Terrain left = GetTerrainOrNull(coords.x - 1, coords.y);
+        Terrain top = GetTerrainOrNull(coords.x, coords.y + 1);
+        Terrain right = GetTerrainOrNull(coords.x + 1, coords.y);
+        Terrain bottom = GetTerrainOrNull(coords.x, coords.y - 1);
+
+        chunk.Value.terrain.SetNeighbors(left, top, right, bottom);
+    }
+
+    public Terrain GetTerrainOrNull(int x, int y) {
+        Chunk? chunk = TryGetChunk(x, y);
+        if (chunk != null)
+            return chunk.Value.terrain;
+        return null;
     }
 
     private Terrain CreateTerrainForChunk(Chunk.Coords coords) {
@@ -161,7 +193,7 @@ public class TerrainManager : MonoBehaviour {
 
     private Terrain GetAndSetupTerrain(GameObject terrainObject) {
         Terrain terrain = terrainObject.GetComponent<Terrain>();
-        terrain.heightmapPixelError = 1;
+        terrain.heightmapPixelError = pixelError;
         if (terrainMaterial != null) {
             terrain.materialType = Terrain.MaterialType.Custom;
             terrain.materialTemplate = terrainMaterial;

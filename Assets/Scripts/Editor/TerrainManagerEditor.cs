@@ -20,6 +20,9 @@ class TerrainManagerEditor : Editor {
         GUILayout.Label("Terrain options", EditorStyles.boldLabel);
         manager.chunkSize = EditorGUILayout.Vector3Field("Chunk size", manager.chunkSize);
         manager.resolution = EditorGUILayout.IntField("Resolution", manager.resolution);
+        manager.pixelError = EditorGUILayout.IntSlider("Pixel Error", manager.pixelError, 1, 200);
+        manager.setupsNeighbors = EditorGUILayout.Toggle("Setups Neighbors", manager.setupsNeighbors);
+
         manager.terrainMaterial = (Material)
             EditorGUILayout.ObjectField("Material", manager.terrainMaterial, typeof(Material), false);
 
