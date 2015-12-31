@@ -14,8 +14,10 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     
     public SplatPrototypeData grassSplat = new SplatPrototypeData();
     public SplatPrototypeData snowSplat = new SplatPrototypeData();
+    public SplatPrototypeData rockSplat = new SplatPrototypeData();
 
     public AnimationCurve snowStrength = new AnimationCurve();
+    public AnimationCurve rockSteepness = new AnimationCurve();
 
     public GameObject treePrefab;
     public AnimationCurve treesStrength = new AnimationCurve();
@@ -54,6 +56,8 @@ public class PerlinNoiseGenerator : TerrainGenerator {
     }
 
     protected override void OnAfterGenerate() {
+        PaintRockOnSlope();
+
         if (alphamap != null)
             data.SetAlphamaps(0, 0, alphamap);
     }
@@ -71,12 +75,19 @@ public class PerlinNoiseGenerator : TerrainGenerator {
         if (grassSplat.texture == null)
             return;
 
-        SplatPrototype[] splats = new SplatPrototype[snowSplat.texture != null ? 2 : 1];
+        SplatPrototype[] splats = new SplatPrototype[1];
         splats[0] = grassSplat.toSplatPrototype();
 
-        if (snowSplat.texture != null)
+        if (snowSplat.texture !=  null) {
+            Array.Resize(ref splats, 2);
             splats[1] = snowSplat.toSplatPrototype();
+        }
 
+        if (rockSplat.texture != null & splats.Length == 2) {
+            Array.Resize(ref splats, 3);
+            splats[2] = rockSplat.toSplatPrototype();
+        }
+        
         data.splatPrototypes = splats;
         alphamap = data.GetAlphamaps(0, 0, width, height);
     }
@@ -89,6 +100,30 @@ public class PerlinNoiseGenerator : TerrainGenerator {
 
         alphamap[y, x, 0] = 1.0f - snow;
         alphamap[y, x, 1] = snow;
+        alphamap[y, x, 2] = 0.0f;
+    }
+
+    private void PaintRockOnSlope() {
+        if (data.splatPrototypes.Length < 3)
+            return;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                float xCoord = (float) x / (width - 1);
+                float yCoord = (float) y / (height - 1);
+
+                float steepness = data.GetSteepness(xCoord, yCoord) / 90.0f;
+                float rock = rockSteepness.Evaluate(steepness);
+
+                float grass = alphamap[y, x, 0];
+                float snow = alphamap[y, x, 1];
+                float sum = grass + snow + rock;
+
+                alphamap[y, x, 0] = grass / sum;
+                alphamap[y, x, 1] = snow / sum;
+                alphamap[y, x, 2] = rock / sum;
+            }
+        }
     }
 
     private void SetupTrees() {

@@ -607,6 +607,13 @@ MonoBehaviour:
     tileOffset: {x: 0, y: 0}
     metallic: 0
     smoothness: 0
+  rockSplat:
+    texture: {fileID: 2800000, guid: 4bb192cf077c77d41b81e19a2864e169, type: 3}
+    normalMap: {fileID: 0}
+    tileSize: {x: 15, y: 15}
+    tileOffset: {x: 0, y: 0}
+    metallic: 0
+    smoothness: 0
   snowStrength:
     serializedVersion: 2
     m_Curve:
@@ -621,6 +628,22 @@ MonoBehaviour:
       outSlope: 1.6666666
       tangentMode: 10
     - time: 0.8
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rockSteepness:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 2.7999392
+      outSlope: 2.7999392
+      tangentMode: 0
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0

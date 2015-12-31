@@ -100,10 +100,17 @@ class TerrainCreatorEditor : Editor {
             SplatPrototypeEditor.Show(noise.snowSplat);
         GUILayout.EndVertical();
 
+        GUILayout.BeginVertical();
+        GUILayout.Label("Rock");
+        if (GUILayout.Button(noise.rockSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(noise.rockSplat);
+        GUILayout.EndVertical();
+
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
         noise.snowStrength = EditorGUILayout.CurveField("Snow Strenght", noise.snowStrength);
+        noise.rockSteepness = EditorGUILayout.CurveField("Rock Steepness", noise.rockSteepness);
 
         GUILayout.Label("Trees", EditorStyles.boldLabel);
         noise.treePrefab = (GameObject)
