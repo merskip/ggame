@@ -19,8 +19,6 @@ public class LoadingScreen : MonoBehaviour {
     private Texture2D texBarFb;
     private Texture2D texBarBg;
 
-    private Vector2 barPos = new Vector2();
-
     private bool isFirstLoading = true;
     private bool lastShowScreen = false;
 
@@ -44,11 +42,6 @@ public class LoadingScreen : MonoBehaviour {
         savedCullingMask = mainCamera.cullingMask;
         savedBackground = mainCamera.backgroundColor;
 
-        barPos.x = Screen.width / 2.0f - barSize.x / 2.0f;
-        barPos.y = Screen.height / 2.0f - barSize.y / 2.0f;
-    }
-
-    void Start() {
         texBarFb = new Texture2D(1, 1);
         texBarFb.SetPixel(0, 0, barForeground);
         texBarFb.Apply();
@@ -56,7 +49,9 @@ public class LoadingScreen : MonoBehaviour {
         texBarBg = new Texture2D(1, 1);
         texBarBg.SetPixel(0, 0, barBackground);
         texBarBg.Apply();
+    }
 
+    void Start() {
         StartLoadingScreen();
     }
 	
@@ -66,11 +61,8 @@ public class LoadingScreen : MonoBehaviour {
                 StartLoadingScreen();
 
             float loading = (float) creator.ChunksLoadedCount / creator.ChunksToLoadCount;
-
-            GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x, barSize.y), texBarBg);
-            GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x * loading, barSize.y), texBarFb);
+            DrawLoadingBarWithLabel(loading);
             
-            GUI.Label(new Rect(barPos.x, barPos.y - 24, barSize.x, 20), "Generate world...");
             lastShowScreen = true;
         } else {
             if (lastShowScreen) {
@@ -79,6 +71,17 @@ public class LoadingScreen : MonoBehaviour {
                 lastShowScreen = false;
             }
         }
+    }
+
+    private void DrawLoadingBarWithLabel(float loading) {
+        Vector2 barPos = new Vector2();
+        barPos.x = Screen.width / 2.0f - barSize.x / 2.0f;
+        barPos.y = Screen.height / 2.0f - barSize.y / 2.0f;
+
+        GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x, barSize.y), texBarBg);
+        GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x * loading, barSize.y), texBarFb);
+
+        GUI.Label(new Rect(barPos.x, barPos.y - 24, barSize.x, 20), "Generate world...");
     }
 
     private bool IsShowLoadingScreen() {
