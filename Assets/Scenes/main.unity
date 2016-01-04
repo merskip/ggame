@@ -506,7 +506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
-  hideTreesAndGrass: 1
+  hideTreesAndFoliage: 1
   hideHeightmap: 1
 --- !u!1 &1080736731
 GameObject:
