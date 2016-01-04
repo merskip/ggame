@@ -434,6 +434,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 376648425}
   - 114: {fileID: 376648424}
+  - 114: {fileID: 376648427}
   - 114: {fileID: 376648426}
   m_Layer: 0
   m_Name: World
@@ -493,6 +494,20 @@ MonoBehaviour:
   createRange: 5
   destoryRange: 5
   generatorType: 2
+--- !u!114 &376648427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 376648423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d49b52e42bc0c44ead7445e09f44785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  hideTreesAndGrass: 1
+  hideHeightmap: 1
 --- !u!1 &1080736731
 GameObject:
   m_ObjectHideFlags: 0
