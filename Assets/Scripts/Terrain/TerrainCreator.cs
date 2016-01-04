@@ -30,15 +30,11 @@ public class TerrainCreator : MonoBehaviour {
     }
 
     private TerrainManager manager;
-    private Chunk.Coords lastCoords;
+    private Vector3 lastCreatedPosition;
 
     private Coroutine showChunksCoroutine;
     private List<Chunk.Coords> chunksToLoad;
     private int chunksLoadedCount;
-
-    public Chunk.Coords CurrentCoords {
-        get { return lastCoords; }
-    }
 
     public TerrainManager TerrainManager {
         get { return manager; }
@@ -63,12 +59,24 @@ public class TerrainCreator : MonoBehaviour {
         manager = GetComponent<TerrainManager>();
     }
 
+    void Start() {
+        Chunk.Coords coords = GetCurrentCoords();
+        OnChangeChunk(coords);
+        lastCreatedPosition = focus.position;
+    }
+
     void Update() {
-        Chunk.Coords coords = getCurrentChunkCoords();
-        if (!coords.Equals(lastCoords)) {
+        if (ShouldCreateChunks()) {
+            Chunk.Coords coords = GetCurrentCoords();
             OnChangeChunk(coords);
-            lastCoords = coords;
+            lastCreatedPosition = focus.position;
         }
+    }
+    
+    private bool ShouldCreateChunks() {
+        Vector3 delta = focus.position - lastCreatedPosition;
+        return Mathf.Abs(delta.x) > manager.chunkSize.x
+            || Mathf.Abs(delta.z) > manager.chunkSize.y;
     }
 
     private void OnChangeChunk(Chunk.Coords coords) {
@@ -79,7 +87,7 @@ public class TerrainCreator : MonoBehaviour {
         RemoveChunksIfOutOfRange(coords);
     }
 
-    private Chunk.Coords getCurrentChunkCoords() {
+    public Chunk.Coords GetCurrentCoords() {
         return manager.ToChunkCoords(focus.position);
     }
 
@@ -96,26 +104,23 @@ public class TerrainCreator : MonoBehaviour {
         chunksLoadedCount = 0;
     }
 
-    private List<Chunk.Coords> GetChunkCoordsToLoad(Chunk.Coords currentCoords) {
+    private List<Chunk.Coords> GetChunkCoordsToLoad(Chunk.Coords coords) {
+        List<Chunk.Coords> loadedChunk = manager.LoadedChunksCoords;
         List<Chunk.Coords> list = new List<Chunk.Coords>();
-        for (int x = 0; x < createRange; x++) {
-            for (int y = 0; y < createRange - x; y++) {
-                AddUniquteCoords(list, currentCoords.x + x, currentCoords.y + y);
-                AddUniquteCoords(list, currentCoords.x - x, currentCoords.y + y);
-                AddUniquteCoords(list, currentCoords.x + x, currentCoords.y - y);
-                AddUniquteCoords(list, currentCoords.x - x, currentCoords.y - y);
+        int r2 = createRange * createRange;
+
+        for (int x = -createRange; x <= createRange; x++) {
+            for (int y = -createRange; y <= createRange; y++) {
+                Chunk.Coords c = new Chunk.Coords(coords.x + x, coords.y + y);
+
+                bool inRange = x * x + y * y <= r2;
+                bool isLoaded = loadedChunk.Contains(c);
+                if (inRange && !isLoaded)
+                    list.Add(c);
             }
         }
 
         return list;
-    }
-
-    private void AddUniquteCoords(List<Chunk.Coords> list, int x, int y) {
-        var coords = new Chunk.Coords(x, y);
-        if (!list.Contains(coords)) {
-            if (!manager.LoadedChunksCoords.Contains(coords))
-                list.Add(coords);
-        }
     }
 
     private void RemoveChunksIfOutOfRange(Chunk.Coords currentCoords) {

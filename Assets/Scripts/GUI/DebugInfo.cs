@@ -22,7 +22,7 @@ public class DebugInfo : MonoBehaviour {
     }
 	
 	void LateUpdate() {
-        var coords = terrainCreator.CurrentCoords;
+        var coords = terrainCreator.GetCurrentCoords();
         var chunks = terrainCreator.TerrainManager.ChunksCount;
         text.text = string.Format(format, coords.x, coords.y, chunks);
 	}
