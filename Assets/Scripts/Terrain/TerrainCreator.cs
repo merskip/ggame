@@ -113,7 +113,7 @@ public class TerrainCreator : MonoBehaviour {
             for (int y = -createRange; y <= createRange; y++) {
                 Chunk.Coords c = new Chunk.Coords(coords.x + x, coords.y + y);
 
-                bool inRange = x * x + y * y <= r2;
+                bool inRange = x * x + y * y < r2;
                 bool isLoaded = loadedChunk.Contains(c);
                 if (inRange && !isLoaded)
                     list.Add(c);
