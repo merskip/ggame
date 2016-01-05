@@ -607,7 +607,7 @@ MonoBehaviour:
   seed: 0
   amplitude: 1
   frequency: 1
-  octaveCount: 8
+  octaveCount: 6
   persistence: 0.45
   lacunarity: 2
   grassSplat:
