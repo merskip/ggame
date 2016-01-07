@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using CoherentNoise.Generation.Fractal;
 
-public class PerlinNoiseGenerator : TerrainGenerator {
+public class WorldGenerator : TerrainGenerator {
 
     public int seed = 0;
     public float amplitude = 1.0f;

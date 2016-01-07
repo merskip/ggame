@@ -4,30 +4,25 @@ using System.Collections.Generic;
 using System.Threading;
 using System;
 
+public enum GeneratorType {
+    Plain,
+    Wave,
+    Noise,
+    World
+}
+
 [RequireComponent (typeof(TerrainManager))]
 public class TerrainCreator : MonoBehaviour {
-
-    public enum GeneratorType {
-        Plain,
-        Wave,
-        PerlinNoise
-    }
 
     public Transform focus;
     public int createRange = 6;
     public int destoryRange = 8;
+
+    public GeneratorType activeGenerator = GeneratorType.Plain;
     
-    public GeneratorType generatorType;
-    
-    public TerrainGenerator TerrainGenerator {
-        set {
-            manager.generator = value;
-        }
-        get {
-            manager = GetComponent<TerrainManager>();
-            return manager.generator;
-        }
-    }
+    [SerializeField]
+    [HideInInspector]
+    private TerrainGenerator[] generators;
 
     private TerrainManager manager;
     private Vector3 lastCreatedPosition;
@@ -57,6 +52,35 @@ public class TerrainCreator : MonoBehaviour {
             focus = Camera.main.transform;
 
         manager = GetComponent<TerrainManager>();
+        manager.generator = GetGenerator(activeGenerator);
+    }
+
+    public T GetGenerator<T>() where T : TerrainGenerator {
+        if (typeof(T) == typeof(PlainGenerator))
+            return (T) GetGenerator(GeneratorType.Plain);
+        else if (typeof(T) == typeof(WaveGenerator))
+            return (T) GetGenerator(GeneratorType.Wave);
+        else if (typeof(T) == typeof(NoiseGenerator))
+            return (T) GetGenerator(GeneratorType.Noise);
+        else if (typeof(T) == typeof(WorldGenerator))
+            return (T) GetGenerator(GeneratorType.World);
+        else
+            throw new Exception("Invalid type of generator: " + typeof(T));
+    }
+
+    public TerrainGenerator GetGenerator(GeneratorType type) {
+        if (generators.Length == 0)
+            InitGenerators();
+
+        return generators[(int) type];
+    }
+
+    private void InitGenerators() {
+        generators = new TerrainGenerator[4];
+        generators[(int) GeneratorType.Plain] = ScriptableObject.CreateInstance<PlainGenerator>();
+        generators[(int) GeneratorType.Wave] = ScriptableObject.CreateInstance<WaveGenerator>();
+        generators[(int) GeneratorType.Noise] = ScriptableObject.CreateInstance<NoiseGenerator>();
+        generators[(int) GeneratorType.World] = ScriptableObject.CreateInstance<WorldGenerator>();
     }
 
     void Start() {

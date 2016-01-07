@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System;
-using System.Linq;
 
 [Serializable]
 [CustomEditor(typeof(TerrainCreator))]
@@ -17,10 +16,10 @@ class TerrainCreatorEditor : Editor {
     public override void OnInspectorGUI() {
         serializedObject.Update();
 
-        string[] customFields = new string[] { "m_Script", "generatorType", "createRange", "destoryRange" };
+        string[] hideFields = new string[] { "m_Script", "activeGenerator", "createRange", "destoryRange" };
 
         GUILayout.Label("Creator options", EditorStyles.boldLabel);
-        DrawPropertiesExcluding(serializedObject, customFields);
+        DrawPropertiesExcluding(serializedObject, hideFields);
 
         creator.createRange = EditorGUILayout.IntSlider("Create Range", creator.createRange, 0, 32);
         if (creator.createRange >= creator.destoryRange)
@@ -29,25 +28,10 @@ class TerrainCreatorEditor : Editor {
 
 
         GUILayout.Label("Generator options", EditorStyles.boldLabel);
-        string[] types = Enum.GetNames(typeof(TerrainCreator.GeneratorType));
-        int newType = GUILayout.Toolbar((int) creator.generatorType, types);
+        string[] types = Enum.GetNames(typeof(GeneratorType));
+        creator.activeGenerator = (GeneratorType) GUILayout.Toolbar((int) creator.activeGenerator, types);
 
-        if (newType != (int) creator.generatorType) {
-            if (ShowConfimChangeTypeGenerator())
-                creator.generatorType = (TerrainCreator.GeneratorType) newType;
-        }
-
-        switch (creator.generatorType) {
-            case TerrainCreator.GeneratorType.Plain:
-                DrawPlainEditor();
-                break;
-            case TerrainCreator.GeneratorType.Wave:
-                DrawWaveEditor();
-                break;
-            case TerrainCreator.GeneratorType.PerlinNoise:
-                DrawPerlinNoiseEditor();
-                break;
-        }
+        DrawGeneratorEditor();
         
         if (GUI.changed) {
             EditorUtility.SetDirty(creator);
@@ -62,21 +46,39 @@ class TerrainCreatorEditor : Editor {
             "Yes", "Cancel");
     }
 
+    private void DrawGeneratorEditor() {
+        switch (creator.activeGenerator) {
+            case GeneratorType.Plain:
+                DrawPlainEditor();
+                break;
+            case GeneratorType.Wave:
+                DrawWaveEditor();
+                break;
+            case GeneratorType.Noise:
+                DrawNoiseEdtior();
+                break;
+            case GeneratorType.World:
+                DrawWorldEditor();
+                break;
+        }
+    }
+
     private void DrawPlainEditor() {
-        PlainGenerator plane = GetIntanceOrCreateGenerator<PlainGenerator>();
+        PlainGenerator plane = creator.GetGenerator<PlainGenerator>();
 
         plane.baseHeight = EditorGUILayout.Slider("Base height", plane.baseHeight, 0.0f, 1.0f);
     }
 
     private void DrawWaveEditor() {
-        WaveGenerator wave = GetIntanceOrCreateGenerator<WaveGenerator>();
+        WaveGenerator wave = creator.GetGenerator<WaveGenerator>();
 
         wave.amplitude = EditorGUILayout.Slider("Amplitude", wave.amplitude, 0.0f, 1.0f);
         wave.frequency = EditorGUILayout.FloatField("Frequency", wave.frequency);
     }
 
-    private void DrawPerlinNoiseEditor() {
-        PerlinNoiseGenerator noise = GetIntanceOrCreateGenerator<PerlinNoiseGenerator>();
+    private void DrawNoiseEdtior(NoiseGenerator noise = null) {
+        if (noise == null) 
+            noise = creator.GetGenerator<NoiseGenerator>();
 
         noise.seed = EditorGUILayout.IntField("Seed", noise.seed);
         noise.amplitude = EditorGUILayout.Slider("Amplitude", noise.amplitude, 0.0f, 1.0f);
@@ -84,47 +86,51 @@ class TerrainCreatorEditor : Editor {
         noise.octaveCount = EditorGUILayout.IntField("Octave count", noise.octaveCount);
         noise.persistence = EditorGUILayout.FloatField("Persistence", noise.persistence);
         noise.lacunarity = EditorGUILayout.FloatField("Lacunarity", noise.lacunarity);
+    }
+
+    private void DrawWorldEditor() {
+        WorldGenerator world = creator.GetGenerator<WorldGenerator>();
+        
+        world.seed = EditorGUILayout.IntField("Seed", world.seed);
+        world.amplitude = EditorGUILayout.Slider("Amplitude", world.amplitude, 0.0f, 1.0f);
+        world.frequency = EditorGUILayout.FloatField("Frequency", world.frequency);
+        world.octaveCount = EditorGUILayout.IntField("Octave count", world.octaveCount);
+        world.persistence = EditorGUILayout.FloatField("Persistence", world.persistence);
+        world.lacunarity = EditorGUILayout.FloatField("Lacunarity", world.lacunarity);
         
         GUILayout.Label("Textures", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         
         GUILayout.BeginVertical();
         GUILayout.Label("Grass");
-        if (GUILayout.Button(noise.grassSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
-            SplatPrototypeEditor.Show(noise.grassSplat);
+        if (GUILayout.Button(world.grassSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(world.grassSplat);
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical();
         GUILayout.Label("Snow");
-        if (GUILayout.Button(noise.snowSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
-            SplatPrototypeEditor.Show(noise.snowSplat);
+        if (GUILayout.Button(world.snowSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(world.snowSplat);
         GUILayout.EndVertical();
 
         GUILayout.BeginVertical();
         GUILayout.Label("Rock");
-        if (GUILayout.Button(noise.rockSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
-            SplatPrototypeEditor.Show(noise.rockSplat);
+        if (GUILayout.Button(world.rockSplat.texture, GUILayout.Height(64), GUILayout.Width(64)))
+            SplatPrototypeEditor.Show(world.rockSplat);
         GUILayout.EndVertical();
 
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
-        noise.snowStrength = EditorGUILayout.CurveField("Snow Strenght", noise.snowStrength);
-        noise.rockSteepness = EditorGUILayout.CurveField("Rock Steepness", noise.rockSteepness);
+        world.snowStrength = EditorGUILayout.CurveField("Snow Strenght", world.snowStrength);
+        world.rockSteepness = EditorGUILayout.CurveField("Rock Steepness", world.rockSteepness);
 
         GUILayout.Label("Trees", EditorStyles.boldLabel);
-        noise.treePrefab = (GameObject)
-            EditorGUILayout.ObjectField("Tree prefab", noise.treePrefab, typeof(GameObject), false);
-        noise.treesStrength = EditorGUILayout.CurveField("Trees Strenght", noise.treesStrength);
+        world.treePrefab = (GameObject)
+            EditorGUILayout.ObjectField("Tree prefab", world.treePrefab, typeof(GameObject), false);
+        world.treesStrength = EditorGUILayout.CurveField("Trees Strenght", world.treesStrength);
 
-        EditorGUILayout.MinMaxSlider(new GUIContent("Trees size"), ref noise.treeSizeMin, ref noise.treeSizeMax, 0.0f, 1.0f);
+        EditorGUILayout.MinMaxSlider(new GUIContent("Trees size"), ref world.treeSizeMin, ref world.treeSizeMax, 0.0f, 1.0f);
 
-    }
-
-    private T GetIntanceOrCreateGenerator<T>() where T : TerrainGenerator {
-        if (creator.TerrainGenerator is T == false)
-            creator.TerrainGenerator = (T) CreateInstance(typeof(T));
-        
-        return (T) creator.TerrainGenerator;
     }
 }
