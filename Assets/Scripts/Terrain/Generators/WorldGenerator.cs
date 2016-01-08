@@ -123,7 +123,7 @@ public class WorldGenerator : TerrainGenerator {
         if (data.treePrototypes.Length == 0)
             return;
 
-        float strengh = treesStrength.Evaluate(h);
+        float strengh = treesStrength.Evaluate(h) / data.heightmapResolution;
         bool placeTree = r.NextDouble() <= strengh;
         if (placeTree) {
             float xCoord = (float) x / width;
