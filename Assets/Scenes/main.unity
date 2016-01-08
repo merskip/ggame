@@ -548,12 +548,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4c12c4a84d5a4488306aeda2724e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
-  amplitude: 1
-  frequency: 1
-  octaveCount: 8
-  persistence: 0.45
-  lacunarity: 2
+  noise:
+    amplitude: 1
+    seed: 0
+    frequency: 1
+    octaveCount: 8
+    persistence: 0.45
+    lacunarity: 2
 --- !u!114 &778323306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,12 +579,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
-  amplitude: 1
-  frequency: 1
-  octaveCount: 8
-  persistence: 0.45
-  lacunarity: 2
+  heightmapNoise:
+    amplitude: 1
+    seed: 0
+    frequency: 1
+    octaveCount: 8
+    persistence: 0.45
+    lacunarity: 2
   grassSplat:
     texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
     normalMap: {fileID: 0}
@@ -647,6 +649,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  treesSeed: 0
   treePrefab: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
   treesStrength:
     serializedVersion: 2

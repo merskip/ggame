@@ -4,13 +4,8 @@ using System;
 using CoherentNoise.Generation.Fractal;
 
 public class WorldGenerator : TerrainGenerator {
-
-    public int seed = 0;
-    public float amplitude = 1.0f;
-    public float frequency = 1.0f;
-    public int octaveCount = 8;
-    public float persistence = 0.45f;
-    public float lacunarity = 2.0f;
+    
+    public PinkTiledNoise heightmapNoise = new PinkTiledNoise();
     
     public SplatPrototypeData grassSplat = new SplatPrototypeData();
     public SplatPrototypeData snowSplat = new SplatPrototypeData();
@@ -19,12 +14,11 @@ public class WorldGenerator : TerrainGenerator {
     public AnimationCurve snowStrength = new AnimationCurve();
     public AnimationCurve rockSteepness = new AnimationCurve();
 
+    public int treesSeed = 0;
     public GameObject treePrefab;
     public AnimationCurve treesStrength = new AnimationCurve();
     public float treeSizeMin = 0.5f;
     public float treeSizeMax = 1.0f;
-
-    private PinkNoise noise;
 
     private float[,,] alphamap;
 
@@ -33,22 +27,17 @@ public class WorldGenerator : TerrainGenerator {
     private float yMaxMove;
 
     protected override void OnBeforeGenerate() {
-        noise = new PinkNoise(seed);
-        noise.Frequency = frequency;
-        noise.OctaveCount = octaveCount;
-        noise.Persistence = persistence;
-        noise.Lacunarity = lacunarity;
-
+        
         SetupSplats();
         SetupTrees();
     }
 
     protected override void GenerateHeightmap() {
+        Chunk.Coords c = chunk.coords;
+        heightmap = heightmapNoise.GetTiledMap(c.x, c.y, width, height);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                float h = GetHeightAt(x, y);
-                heightmap[y, x] = h;
-                
+                float h = heightmap[y, x];
                 PaintTexture(x, y, h);
                 PlaceTree(x, y, h);
             }
@@ -60,15 +49,6 @@ public class WorldGenerator : TerrainGenerator {
 
         if (alphamap != null)
             data.SetAlphamaps(0, 0, alphamap);
-    }
-
-    private float GetHeightAt(int x, int y) {
-        float xCoord = getCoordX(x);
-        float yCoord = getCoordY(y);
-        float h = noise.GetValue(xCoord, yCoord, 0.0f);
-        h = (h + 1.5f) / 3.0f * amplitude;
-        h = Mathf.Clamp(h, 0.0f, 1.0f);
-        return h;
     }
 
     private void SetupSplats() {
@@ -136,7 +116,7 @@ public class WorldGenerator : TerrainGenerator {
         data.treePrototypes = new TreePrototype[] { treePrototype };
         xMaxMove = 1.0f / width;
         yMaxMove = 1.0f / height;
-        r = new System.Random(seed);
+        r = new System.Random(treesSeed);
     }
 
     private void PlaceTree(int x, int y, float h) {

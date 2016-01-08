@@ -76,27 +76,17 @@ class TerrainCreatorEditor : Editor {
         wave.frequency = EditorGUILayout.FloatField("Frequency", wave.frequency);
     }
 
-    private void DrawNoiseEdtior(NoiseGenerator noise = null) {
-        if (noise == null) 
-            noise = creator.GetGenerator<NoiseGenerator>();
-
-        noise.seed = EditorGUILayout.IntField("Seed", noise.seed);
-        noise.amplitude = EditorGUILayout.Slider("Amplitude", noise.amplitude, 0.0f, 1.0f);
-        noise.frequency = EditorGUILayout.FloatField("Frequency", noise.frequency);
-        noise.octaveCount = EditorGUILayout.IntField("Octave count", noise.octaveCount);
-        noise.persistence = EditorGUILayout.FloatField("Persistence", noise.persistence);
-        noise.lacunarity = EditorGUILayout.FloatField("Lacunarity", noise.lacunarity);
+    private void DrawNoiseEdtior() {
+        NoiseGenerator noise = creator.GetGenerator<NoiseGenerator>();
+        
+        TiledNoiseEditor.Draw(noise.noise);
     }
 
     private void DrawWorldEditor() {
         WorldGenerator world = creator.GetGenerator<WorldGenerator>();
-        
-        world.seed = EditorGUILayout.IntField("Seed", world.seed);
-        world.amplitude = EditorGUILayout.Slider("Amplitude", world.amplitude, 0.0f, 1.0f);
-        world.frequency = EditorGUILayout.FloatField("Frequency", world.frequency);
-        world.octaveCount = EditorGUILayout.IntField("Octave count", world.octaveCount);
-        world.persistence = EditorGUILayout.FloatField("Persistence", world.persistence);
-        world.lacunarity = EditorGUILayout.FloatField("Lacunarity", world.lacunarity);
+
+        GUILayout.Label("Heightmap", EditorStyles.boldLabel);
+        TiledNoiseEditor.Draw(world.heightmapNoise);
         
         GUILayout.Label("Textures", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
@@ -126,11 +116,12 @@ class TerrainCreatorEditor : Editor {
         world.rockSteepness = EditorGUILayout.CurveField("Rock Steepness", world.rockSteepness);
 
         GUILayout.Label("Trees", EditorStyles.boldLabel);
+        world.treesSeed = EditorGUILayout.IntField("Seed", world.treesSeed);
         world.treePrefab = (GameObject)
-            EditorGUILayout.ObjectField("Tree prefab", world.treePrefab, typeof(GameObject), false);
-        world.treesStrength = EditorGUILayout.CurveField("Trees Strenght", world.treesStrength);
+            EditorGUILayout.ObjectField("Prefab", world.treePrefab, typeof(GameObject), false);
+        world.treesStrength = EditorGUILayout.CurveField("Strenght", world.treesStrength);
 
-        EditorGUILayout.MinMaxSlider(new GUIContent("Trees size"), ref world.treeSizeMin, ref world.treeSizeMax, 0.0f, 1.0f);
+        EditorGUILayout.MinMaxSlider(new GUIContent("Size"), ref world.treeSizeMin, ref world.treeSizeMax, 0.0f, 1.0f);
 
     }
 }
