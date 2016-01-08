@@ -504,7 +504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   focus: {fileID: 315463665}
   createRange: 6
-  destoryRange: 8
+  destoryRange: 6
   activeGenerator: 3
   generators:
   - {fileID: 762327361}
@@ -583,7 +583,7 @@ MonoBehaviour:
     amplitude: 1
     seed: 0
     frequency: 1
-    octaveCount: 8
+    octaveCount: 6
     persistence: 0.45
     lacunarity: 2
   grassSplat:
@@ -656,22 +656,22 @@ MonoBehaviour:
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.062396135
+      outSlope: 0.062396135
       tangentMode: 0
-    - time: 0.33
+    - time: 0.3
       value: 0
       inSlope: 0
-      outSlope: 0.06666666
+      outSlope: 2.5000002
       tangentMode: 5
-    - time: 0.5
-      value: 0.04
+    - time: 0.45
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 0.66
+    - time: 0.6
       value: 0
-      inSlope: -0.09090908
+      inSlope: -1.6666666
       outSlope: -0
       tangentMode: 17
     - time: 1
