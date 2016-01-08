@@ -1,34 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 
-[RequireComponent (typeof(Camera))]
 public class LoadingScreen : MonoBehaviour {
 
     public bool onlyFirstLoading = true;
-
     public Behaviour[] forFreezingComponent;
+    
+    public Canvas loadingCanvas;
+    public Text counter;
+    public RectTransform progressBar;
 
-    public Color backgroundColor = Color.black;
-
-    public Vector2 barSize = new Vector2(250, 5);
-
-    public Color barForeground = Color.blue;
-    public Color barBackground = Color.grey;
-
-    private Texture2D texBarFb;
-    private Texture2D texBarBg;
-
-    private bool isFirstLoading = true;
-    private bool lastShowScreen = false;
-
+    private string counterFormat;
+    
     private TerrainCreator creator;
 
     private Camera mainCamera;
-    private CameraClearFlags savedClearFlags;
     private int savedCullingMask;
-    private Color savedBackground;
 
+    private bool isFirstLoading = true;
+    private bool lastShowScreen = false;
 
     void Awake() {
         creator = FindObjectOfType<TerrainCreator>();
@@ -37,18 +29,10 @@ public class LoadingScreen : MonoBehaviour {
             enabled = false;
         }
 
+        counterFormat = counter.text;
+
         mainCamera = Camera.main;
-        savedClearFlags = mainCamera.clearFlags;
         savedCullingMask = mainCamera.cullingMask;
-        savedBackground = mainCamera.backgroundColor;
-
-        texBarFb = new Texture2D(1, 1);
-        texBarFb.SetPixel(0, 0, barForeground);
-        texBarFb.Apply();
-
-        texBarBg = new Texture2D(1, 1);
-        texBarBg.SetPixel(0, 0, barBackground);
-        texBarBg.Apply();
     }
 
     void Start() {
@@ -61,7 +45,7 @@ public class LoadingScreen : MonoBehaviour {
                 StartLoadingScreen();
 
             float loading = (float) creator.ChunksLoadedCount / creator.ChunksToLoadCount;
-            DrawLoadingBarWithLabel(loading);
+            UpdateProgress(loading);
             
             lastShowScreen = true;
         } else {
@@ -73,15 +57,14 @@ public class LoadingScreen : MonoBehaviour {
         }
     }
 
-    private void DrawLoadingBarWithLabel(float loading) {
-        Vector2 barPos = new Vector2();
-        barPos.x = Screen.width / 2.0f - barSize.x / 2.0f;
-        barPos.y = Screen.height / 2.0f - barSize.y / 2.0f;
+    private void UpdateProgress(float loading) {
+        Vector3 barScale = progressBar.localScale;
+        barScale.x = loading;
+        progressBar.localScale = barScale;
 
-        GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x, barSize.y), texBarBg);
-        GUI.DrawTexture(new Rect(barPos.x, barPos.y, barSize.x * loading, barSize.y), texBarFb);
-
-        GUI.Label(new Rect(barPos.x, barPos.y - 24, barSize.x, 20), "Generate world...");
+        int loaded = creator.ChunksLoadedCount;
+        int toLoad = creator.ChunksToLoadCount;
+        counter.text = string.Format(counterFormat, loaded, toLoad);
     }
 
     private bool IsShowLoadingScreen() {
@@ -92,23 +75,21 @@ public class LoadingScreen : MonoBehaviour {
         DisableCamera();
         foreach (var c in forFreezingComponent)
             c.enabled = false;
+        loadingCanvas.enabled = true;
     }
 
     private void EndLoadingScreen() {
         EnableCamera();
         foreach (var c in forFreezingComponent)
             c.enabled = true;
+        loadingCanvas.enabled = false;
     }
 
     private void DisableCamera() {
-        mainCamera.clearFlags = CameraClearFlags.SolidColor;
         mainCamera.cullingMask = 0;
-        mainCamera.backgroundColor = backgroundColor;
     }
 
     private void EnableCamera() {
-        mainCamera.clearFlags = savedClearFlags;
         mainCamera.cullingMask = savedCullingMask;
-        mainCamera.backgroundColor = savedBackground;
     }
 }
