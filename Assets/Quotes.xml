@@ -23,8 +23,7 @@
 		- gdyby wszystko działało, nie miałbyś pracy”
 	</quote>
 	<quote author="Jim McCarthy">
-		„Nie można mieć wspaniałego oprogramowania\n
-		bez wspaniałego zespołu,\n
+		„Nie można mieć wspaniałego oprogramowania bez wspaniałego zespołu,\n
 		a większość zespołów zachowuje się jak rodziny patologiczne.”
 	</quote>
 	<quote author="Kyle Woodbury">
@@ -32,10 +31,13 @@
 		prędzej czy później pójdzie ci krew z nosa.”
 	</quote>
 	<quote author="Donald E. Knuth">
-		„Uwaga na błędy w powyższym kodzie, ja tylko dowiodłem jego poprawności, a nie wypróbowałem.”
+		„Uwaga na błędy w powyższym kodzie,\n
+		ja tylko dowiodłem jego poprawności,\n
+		a nie wypróbowałem.”
 	</quote>
 	<quote author="Christopher Thompson">
-		„Czasem opłaca się zostać w poniedziałek w łóżku, niż spędzać resztę tygodnia na debugowaniu poniedziałkowego kodu.”
+		„Czasem opłaca się zostać w poniedziałek w łóżku,\n
+		niż spędzać resztę tygodnia na debugowaniu poniedziałkowego kodu.”
 	</quote>
 	<quote author="Larry Wall">
 		„Większość z was zna już zapewne cnoty programisty.\n
@@ -46,16 +48,20 @@
 		co robią dopóki nie jest za późno.”
 	</quote>
 	<quote author="Martin Golding">
-		„Zawsze programuj jak gdyby osoba zajmująca się twoim kodem w przyszłości była agresywnym psychopatą, który wie gdzie mieszkasz.”
+		„Zawsze programuj jak gdyby osoba zajmująca się twoim kodem\n
+		w przyszłości była agresywnym psychopatą, który wie gdzie mieszkasz.”
 	</quote>
 	<quote author="C.A.R. Hoare">
 		„Są dwie drogi tworzenia oprogramowania.\n
-		Jedną jest tworzenie tak prostego kodu, że, w sposób oczywisty, nie ma w nim żadnych braków.\n
-		Drugą jest tworzenie tak skomplikowanego kodu, że nie ma w nim żadnych oczywistych braków.”
+		Jedną jest tworzenie tak prostego kodu, że,\n
+		w sposób oczywisty, nie ma w nim żadnych braków.\n
+		Drugą jest tworzenie tak skomplikowanego kodu,\n
+		że nie ma w nim żadnych oczywistych braków.”
 	</quote>
 	<quote author="Prawo Murphy`ego">
-		„W zespole programistów, każdy ma genialny plan rozwiązania problemu.
-		Wszystkie plany się wzajemnie wykluczają i żaden nie prowadzi do poprawnego rozwiązania.”
+		„W zespole programistów, każdy ma genialny plan rozwiązania problemu.\n
+		Wszystkie plany się wzajemnie wykluczają\n
+		i żaden nie prowadzi do poprawnego rozwiązania.”
 	</quote>
 	<quote author="Bill Gates">
 		„Jeżeli nie możesz sprawić by działało dobrze\n
@@ -98,8 +104,9 @@
 		- Programiście się płaci tylko za działające programy...
 	</quote>
 	<quote author="A.Jaszkiewicz - Inżynieria oprogramowania">
-		„Niewątpliwie najgorszym sposobem oceny postępów jest pytanie się programistów o ocenę stopnia zaawansowania.
-		Jeśli po miesiącu uzyskamy odpowiedź, że prace są zaawansowane w 90%,
+		„Niewątpliwie najgorszym sposobem oceny postępów\n
+		jest pytanie się programistów o ocenę stopnia zaawansowania.\n
+		Jeśli po miesiącu uzyskamy odpowiedź, że prace są zaawansowane w 90%,\n
 		można się spodziewać, że przedsięwzięcie potrwa jeszcze cały rok.”
 	</quote>
 	<quote>
@@ -117,21 +124,15 @@
 		a potem... już tylko się modlisz!
 	</quote>
 	<quote>
-		Przetestujmy to tak: ekstremalne warunki zostawiamy na później,
+		Przetestujmy to tak: ekstremalne warunki zostawiamy na później,\n
 		na razie musimy wymyślić warunek w którym to działa.
 	</quote>
 	<quote>
-		Przychodzi tester do baru i zamawia drinka.
-		Zamawia 10 drinków. Zamawia 99999999999 drinków.
-		Odchodzi od baru, podchodzi ponownie, odchodzi od baru podchodzi ponownie, zamawia -8 drinków.
+		Przychodzi tester do baru i zamawia drinka.\n
+		Zamawia 10 drinków. Zamawia 99999999999 drinków.\n
+		Odchodzi od baru, podchodzi ponownie,\n
+		odchodzi od baru podchodzi ponownie, zamawia -8 drinków.\n
 		Zamawia zero drinków. Zamawia szynę kolejową.
-	</quote>
-	<quote>
-		Pytania z egzaminu końcowego z informatyki na KUL'u:\n
-		1) Polimorfizm na przykładzie Matki Boskiej, Matki Boskiej Bolesnej, Matki Boskiej Ostrobramskiej\n
-		2) Wzorzec projektowy Singleton na przykładzie przykazań "Jest jeden Bóg" oraz "Nie będzie miał cudzych bogów przede mną".\n
-		3) Rzutowanie, konwersja typów w oparciu o Cud w Kanie Galilejskiej.\n
-		4) Dziedziczenie. Dlaczego Jezus jest też Bogiem?
 	</quote>
 	<quote>
 		Każda - nawet największa - przygoda,\n
