@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<quotes>
+	<quote>
+		„Obyś cudzy kod poprawiał,\n
+		obyś z obcego Framework’a korzystał.”
+	</quote>
+	<quote>
+		„To nie ma sensu” - powiedział umysł.\n
+		„To jest absurdalne” - powiedziało doświadczenie.\n
+		„To jest nieprzydatne” - dodał zdrowy rozsądek.\n
+		„Och, to jest to, tak!” - wykrzyknął zadowolony klient.
+	</quote>
+	<quote author="Julio Cortázar">
+		„Jedyną rzeczą niezmienną jest chęć zmieniania”
+	</quote>
+	<quote author="Edward V. Berard">
+		„Chodzenie po wodzie i tworzenie oprogramowania\n
+		wg specyfikacji są łatwe,\n
+		o ile woda i specyfikacja są zamrożone”
+	</quote>
+	<quote author="Prawo Mosher'a w inżynierii oprogramowania">
+		„Nie martw się jeśli nie działa to dobrze\n
+		- gdyby wszystko działało, nie miałbyś pracy”
+	</quote>
+	<quote author="Jim McCarthy">
+		„Nie można mieć wspaniałego oprogramowania\n
+		bez wspaniałego zespołu,\n
+		a większość zespołów zachowuje się jak rodziny patologiczne.”
+	</quote>
+	<quote author="Kyle Woodbury">
+		„Programowanie jest jak kopanie się w twarz:\n
+		prędzej czy później pójdzie ci krew z nosa.”
+	</quote>
+	<quote author="Donald E. Knuth">
+		„Uwaga na błędy w powyższym kodzie, ja tylko dowiodłem jego poprawności, a nie wypróbowałem.”
+	</quote>
+	<quote author="Christopher Thompson">
+		„Czasem opłaca się zostać w poniedziałek w łóżku, niż spędzać resztę tygodnia na debugowaniu poniedziałkowego kodu.”
+	</quote>
+	<quote author="Larry Wall">
+		„Większość z was zna już zapewne cnoty programisty.\n
+		Są to oczywiście, trzy: lenistwo, niecierpliwość i pycha.”
+	</quote>
+	<quote author="Seymour Cray">
+		„Problem z programistami jest taki, że nigdy nie wiesz,\n
+		co robią dopóki nie jest za późno.”
+	</quote>
+	<quote author="Martin Golding">
+		„Zawsze programuj jak gdyby osoba zajmująca się twoim kodem w przyszłości była agresywnym psychopatą, który wie gdzie mieszkasz.”
+	</quote>
+	<quote author="C.A.R. Hoare">
+		„Są dwie drogi tworzenia oprogramowania.\n
+		Jedną jest tworzenie tak prostego kodu, że, w sposób oczywisty, nie ma w nim żadnych braków.\n
+		Drugą jest tworzenie tak skomplikowanego kodu, że nie ma w nim żadnych oczywistych braków.”
+	</quote>
+	<quote author="Prawo Murphy`ego">
+		„W zespole programistów, każdy ma genialny plan rozwiązania problemu.
+		Wszystkie plany się wzajemnie wykluczają i żaden nie prowadzi do poprawnego rozwiązania.”
+	</quote>
+	<quote author="Bill Gates">
+		„Jeżeli nie możesz sprawić by działało dobrze\n
+		- spraw chociaż by dobrze wyglądało.”
+	</quote>
+	<quote>
+		„Napisanie 90% kodu zajmuje 90% czasu.\n
+		Pozostałe 10% zajmuje kolejne 90% czasu.”
+	</quote>
+	<quote>
+		„-Dlaczego czarownica na stosie krzyczy:\n
+		"więcej drzewa! dajcie więcej drzewa!"?\n
+		- Bo chce przepełnić stos”
+	</quote>
+	<quote>
+		„Kurde, to nawet działa!”\n
+		- zdziwił się programista i poszedł po podwyżkę.
+	</quote>
+	<quote>
+		Fazy projektu informatycznego:\n
+		1. Euforia\n
+		2. Cykoria\n
+		3. Szukanie winnych\n
+		4. Karanie niewinnych\n
+		5. Nagradzanie niezaangażowanych
+	</quote>
+	<quote>
+		„Człowiek ma 95% DNA wspólnego z małpą.\n
+		Bóg też lubi obiektowość.”
+	</quote>
+	<quote>
+		„Pierwsi będą ostatnimi, ostatni będą pierwszymi”\n
+		- powiedział Jezus i zaimplementował stos
+	</quote>
+	<quote>
+		„Cuda się zdarzają. Potwierdzi to każdy programista.”
+	</quote>
+	<quote>
+		- Czym się różni programista od polityka?\n
+		- Programiście się płaci tylko za działające programy...
+	</quote>
+	<quote author="A.Jaszkiewicz - Inżynieria oprogramowania">
+		„Niewątpliwie najgorszym sposobem oceny postępów jest pytanie się programistów o ocenę stopnia zaawansowania.
+		Jeśli po miesiącu uzyskamy odpowiedź, że prace są zaawansowane w 90%,
+		można się spodziewać, że przedsięwzięcie potrwa jeszcze cały rok.”
+	</quote>
+	<quote>
+		Jak trwoga to do loga.
+	</quote>
+	<quote>
+		/* It's not a bug, it's a feature */
+	</quote>
+	<quote>
+		Bóg wybacza, kompilator nigdy.
+	</quote>
+	<quote>
+		Programowanie jest jak katedra.\n
+		- Budujesz, budujesz, budujesz, budujesz,\n
+		a potem... już tylko się modlisz!
+	</quote>
+	<quote>
+		Przetestujmy to tak: ekstremalne warunki zostawiamy na później,
+		na razie musimy wymyślić warunek w którym to działa.
+	</quote>
+	<quote>
+		Przychodzi tester do baru i zamawia drinka.
+		Zamawia 10 drinków. Zamawia 99999999999 drinków.
+		Odchodzi od baru, podchodzi ponownie, odchodzi od baru podchodzi ponownie, zamawia -8 drinków.
+		Zamawia zero drinków. Zamawia szynę kolejową.
+	</quote>
+	<quote>
+		Pytania z egzaminu końcowego z informatyki na KUL'u:\n
+		1) Polimorfizm na przykładzie Matki Boskiej, Matki Boskiej Bolesnej, Matki Boskiej Ostrobramskiej\n
+		2) Wzorzec projektowy Singleton na przykładzie przykazań "Jest jeden Bóg" oraz "Nie będzie miał cudzych bogów przede mną".\n
+		3) Rzutowanie, konwersja typów w oparciu o Cud w Kanie Galilejskiej.\n
+		4) Dziedziczenie. Dlaczego Jezus jest też Bogiem?
+	</quote>
+	<quote>
+		Każda - nawet największa - przygoda,\n
+		rozpoczyna się od int main() {}
+	</quote>
+	<quote>
+		Programiści to takie konwertery kawy na kod.
+	</quote>
+	<quote>
+		Honorowy programista wiesza się razem ze swoim programem...
+	</quote>
+	<quote>
+		Zamknięcie zgłoszenia błędu następuje gdy:\n
+		1. Błąd zostanie poprawiony\n
+		2. Błąd nie dotyczy aktualnie wdrażanej funkcjonalności\n
+		3. Błąd zostanie uznany za nową funkcjonalność
+	</quote>
+	<quote>
+		Kod najtrudniejszy do debuggowania to ten,\n
+		o którym wiesz, że nie może mieć błędów.
+	</quote>
+	<quote>
+		Pisanie aplikacji jest trochę jak poród.\n
+		Gdy zobaczysz dziecko swojej pracy\n
+		jesteś tak dumny i szczęśliwy,\n
+		że zapominasz ile zdrowia Cię to kosztowało.
+	</quote>
+	<quote>
+		Programista HTML brzmi jak Pilot Pojazdu Bojowego typu Rower Dziecięcy.
+	</quote>
+</quotes>

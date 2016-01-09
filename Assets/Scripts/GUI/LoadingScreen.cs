@@ -78,6 +78,9 @@ public class LoadingScreen : MonoBehaviour {
         foreach (var c in forFreezingComponent)
             c.enabled = false;
         loadingCanvas.enabled = true;
+
+        if (!isFirstLoading)
+            GameObject.Find("Quote").SetActive(false);
     }
 
     private void EndLoadingScreen() {
