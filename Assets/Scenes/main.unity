@@ -1259,10 +1259,12 @@ MonoBehaviour:
   forFreezingComponent:
   - {fileID: 315463666}
   - {fileID: 146748610}
-  fadeOutDuration: 0.1
+  fadeInDuration: 0.6
+  fadeOutDuration: 0.2
   loadingCanvas: {fileID: 456385568}
   counter: {fileID: 917830423}
   progressBar: {fileID: 341150092}
+  quotes: {fileID: 2064490326}
 --- !u!1 &1592967544
 GameObject:
   m_ObjectHideFlags: 0

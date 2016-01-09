@@ -59,11 +59,7 @@ public class Quotes : MonoBehaviour {
         return content;
     }
 
-    void Start() {
-        Change();
-    }
-
-	public void Change() {
+	public void ShowNext() {
         int i = Random.Range(0, quotes.Count);
         Quote quote = quotes[i];
 

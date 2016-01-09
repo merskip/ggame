@@ -8,11 +8,13 @@ public class LoadingScreen : MonoBehaviour {
     public bool onlyFirstLoading = true;
     public Behaviour[] forFreezingComponent;
 
+    public float fadeInDuration = 1.0f;
     public float fadeOutDuration = 1.0f;
     
     public Canvas loadingCanvas;
     public Text counter;
     public RectTransform progressBar;
+    public Quotes quotes;
 
     private string counterFormat;
     
@@ -79,8 +81,26 @@ public class LoadingScreen : MonoBehaviour {
             c.enabled = false;
         loadingCanvas.enabled = true;
 
-        if (!isFirstLoading)
-            GameObject.Find("Quote").SetActive(false);
+        if (isFirstLoading) {
+            quotes.ShowNext();
+            StartCoroutine(StartFadeIn(fadeInDuration));
+        }
+    }
+
+    private IEnumerator StartFadeIn(float duration, float delay = 0.05f) {
+        var list = loadingCanvas.GetComponentsInChildren<CanvasRenderer>();
+        float step = 1.0f / (duration / delay);
+        for (float i = 0.0f; i <= 1.0f; i += step) {
+            foreach (var c in list) {
+                if (c.gameObject != loadingCanvas.gameObject)
+                    c.SetAlpha(i);
+            }
+
+            yield return new WaitForSeconds(delay);
+        }
+
+        foreach (var c in list)
+            c.SetAlpha(1.0f);
     }
 
     private void EndLoadingScreen() {
@@ -88,16 +108,16 @@ public class LoadingScreen : MonoBehaviour {
         foreach (var c in forFreezingComponent)
             c.enabled = true;
 
-        if (fadeOutDuration > 0.0f) {
+        
             StartCoroutine(StartFadeOut(fadeOutDuration));
-        } else {
-            loadingCanvas.enabled = false;
-        }
+
+        if (isFirstLoading)
+            quotes.gameObject.SetActive(false);
     }
 
-    private IEnumerator StartFadeOut(float duration, float delay = 0.01f) {
+    private IEnumerator StartFadeOut(float duration, float delay = 0.05f) {
         var c = loadingCanvas.GetComponent<CanvasGroup>();
-        float step = delay / duration;
+        float step = 1.0f / (duration / delay);
         for (float i = 1.0f; i >= 0.0f; i -= step) {
             c.alpha = i;
             yield return new WaitForSeconds(delay);
