@@ -7,6 +7,8 @@ public class LoadingScreen : MonoBehaviour {
 
     public bool onlyFirstLoading = true;
     public Behaviour[] forFreezingComponent;
+
+    public float fadeOutDuration = 1.0f;
     
     public Canvas loadingCanvas;
     public Text counter;
@@ -82,7 +84,24 @@ public class LoadingScreen : MonoBehaviour {
         EnableCamera();
         foreach (var c in forFreezingComponent)
             c.enabled = true;
+
+        if (fadeOutDuration > 0.0f) {
+            StartCoroutine(StartFadeOut(fadeOutDuration));
+        } else {
+            loadingCanvas.enabled = false;
+        }
+    }
+
+    private IEnumerator StartFadeOut(float duration, float delay = 0.01f) {
+        var c = loadingCanvas.GetComponent<CanvasGroup>();
+        float step = delay / duration;
+        for (float i = 1.0f; i >= 0.0f; i -= step) {
+            c.alpha = i;
+            yield return new WaitForSeconds(delay);
+        }
+
         loadingCanvas.enabled = false;
+        c.alpha = 1.0f;
     }
 
     private void DisableCamera() {
