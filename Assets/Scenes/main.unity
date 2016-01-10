@@ -249,7 +249,6 @@ RectTransform:
   m_Children:
   - {fileID: 358032031}
   - {fileID: 223492486}
-  - {fileID: 1080736732}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
@@ -599,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11785022581a394d9f9578fd8ae0a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkSize: {x: 512, y: 255, z: 512}
+  chunkSize: {x: 512, y: 512, z: 512}
   _resoltion: 65
   pixelError: 8
   setupsNeighbors: 1
@@ -636,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focus: {fileID: 315463665}
-  createRange: 6
+  createRange: 4
   destoryRange: 6
   activeGenerator: 3
   generators:
