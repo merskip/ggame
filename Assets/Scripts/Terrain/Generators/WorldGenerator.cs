@@ -4,144 +4,27 @@ using System;
 using CoherentNoise.Generation.Fractal;
 
 public class WorldGenerator : TerrainGenerator {
-    
-    public PinkTiledNoise heightmapNoise = new PinkTiledNoise();
-    
-    public SplatPrototypeData grassSplat = new SplatPrototypeData();
-    public SplatPrototypeData snowSplat = new SplatPrototypeData();
-    public SplatPrototypeData rockSplat = new SplatPrototypeData();
 
-    public AnimationCurve snowStrength = new AnimationCurve();
-    public AnimationCurve rockSteepness = new AnimationCurve();
-
-    public int treesSeed = 0;
-    public GameObject treePrefab;
-    public AnimationCurve treesStrength = new AnimationCurve();
-    public float treeSizeMin = 0.5f;
-    public float treeSizeMax = 1.0f;
-
-    private float[,,] alphamap;
-
-    private System.Random r;
-    private float xMaxMove;
-    private float yMaxMove;
-
-    protected override void OnBeforeGenerate() {
-        
-        SetupSplats();
-        SetupTrees();
-    }
+    public MountainsGenerator mountainsGenerator = new MountainsGenerator();
 
     protected override void GenerateHeightmap() {
-        Chunk.Coords c = chunk.coords;
-        heightmap = heightmapNoise.GetTiledMap(c.x, c.y, width, height);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                float h = heightmap[y, x];
-                PaintTexture(x, y, h);
-                PlaceTree(x, y, h);
-            }
-        }
+        heightmap = mountainsGenerator.GenerateTerrain(chunk);
     }
 
     protected override void OnAfterGenerate() {
-        PaintRockOnSlope();
-
-        if (alphamap != null)
-            data.SetAlphamaps(0, 0, alphamap);
+        mountainsGenerator.OnAfterGenerate();
     }
 
-    private void SetupSplats() {
-        if (grassSplat.texture == null)
-            return;
-
-        SplatPrototype[] splats = new SplatPrototype[1];
-        splats[0] = grassSplat.toSplatPrototype();
-
-        if (snowSplat.texture !=  null) {
-            Array.Resize(ref splats, 2);
-            splats[1] = snowSplat.toSplatPrototype();
-        }
-
-        if (rockSplat.texture != null & splats.Length == 2) {
-            Array.Resize(ref splats, 3);
-            splats[2] = rockSplat.toSplatPrototype();
-        }
-        
-        data.splatPrototypes = splats;
-        alphamap = data.GetAlphamaps(0, 0, width, height);
-    }
-
-    private void PaintTexture(int x, int y, float h) {
-        if (data.splatPrototypes.Length < 2)
-            return;
-
-        float snow = snowStrength.Evaluate(h);
-
-        alphamap[y, x, 0] = 1.0f - snow;
-        alphamap[y, x, 1] = snow;
-        alphamap[y, x, 2] = 0.0f;
-    }
-
-    private void PaintRockOnSlope() {
-        if (data.splatPrototypes.Length < 3)
-            return;
-
+    private float[,] GetDefaultMask() {
+        int width = data.heightmapWidth;
+        int height = data.heightmapHeight;
+        float[,] mask = new float[height, width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                float xCoord = (float) x / (width - 1);
-                float yCoord = (float) y / (height - 1);
-
-                float steepness = data.GetSteepness(xCoord, yCoord) / 90.0f;
-                float rock = rockSteepness.Evaluate(steepness);
-
-                float grass = alphamap[y, x, 0];
-                float snow = alphamap[y, x, 1];
-                float sum = grass + snow + rock;
-
-                alphamap[y, x, 0] = grass / sum;
-                alphamap[y, x, 1] = snow / sum;
-                alphamap[y, x, 2] = rock / sum;
+                mask[y, x] = 1.0f;
             }
         }
+        return mask;
     }
 
-    private void SetupTrees() {
-        if (treePrefab == null)
-            return;
-
-        TreePrototype treePrototype = new TreePrototype();
-        treePrototype.prefab = treePrefab;
-
-        data.treePrototypes = new TreePrototype[] { treePrototype };
-        xMaxMove = 1.0f / width;
-        yMaxMove = 1.0f / height;
-        r = new System.Random(treesSeed);
-    }
-
-    private void PlaceTree(int x, int y, float h) {
-        if (data.treePrototypes.Length == 0)
-            return;
-
-        float strengh = treesStrength.Evaluate(h) / data.heightmapResolution;
-        bool placeTree = r.NextDouble() <= strengh;
-        if (placeTree) {
-            float xCoord = (float) x / width;
-            float yCoord = (float) y / height;
-
-            float xMove = (float) r.NextDouble() % xMaxMove;
-            float yMove = (float) r.NextDouble() % yMaxMove;
-
-            float size = (float) r.NextDouble() * (treeSizeMax - treeSizeMin) + treeSizeMin;
-
-            TreeInstance tree = new TreeInstance();
-            tree.prototypeIndex = 0;
-            tree.heightScale = size;
-            tree.widthScale = size;
-            tree.rotation = (float) r.NextDouble() * 2 * Mathf.PI;
-            tree.color = Color.white;
-            tree.position = new Vector3(xCoord + xMove, 0.0f, yCoord + yMove);
-            chunk.terrain.AddTreeInstance(tree);
-        }
-    }
 }

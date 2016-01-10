@@ -152,18 +152,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 62199207}
---- !u!114 &77959183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008c1080860b4f249a7eabf01d55baa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHeight: 0
 --- !u!1 &146748607
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +598,7 @@ MonoBehaviour:
     tileOffset: {x: 0, y: 0}
     metallic: 0
     smoothness: 0
-  generator: {fileID: 77959183}
+  generator: {fileID: 0}
 --- !u!4 &376648425
 Transform:
   m_ObjectHideFlags: 0
@@ -639,10 +627,10 @@ MonoBehaviour:
   destoryRange: 6
   activeGenerator: 3
   generators:
-  - {fileID: 762327361}
-  - {fileID: 778323306}
-  - {fileID: 774201885}
-  - {fileID: 959424587}
+  - {fileID: 2142142623}
+  - {fileID: 972625207}
+  - {fileID: 1408051163}
+  - {fileID: 1833658470}
 --- !u!114 &376648427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,49 +744,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &762327361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008c1080860b4f249a7eabf01d55baa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHeight: 0
---- !u!114 &774201885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4c12c4a84d5a4488306aeda2724e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noise:
-    amplitude: 1
-    seed: 0
-    frequency: 1
-    octaveCount: 8
-    persistence: 0.45
-    lacunarity: 2
---- !u!114 &778323306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 462825e26ba01314f87451f6bde81067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amplitude: 1
-  frequency: 6.2831855
 --- !u!1 &917830421
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +817,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 917830421}
---- !u!114 &959424587
+--- !u!114 &972625207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -880,114 +825,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 462825e26ba01314f87451f6bde81067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightmapNoise:
-    amplitude: 1
-    seed: 0
-    frequency: 1
-    octaveCount: 6
-    persistence: 0.45
-    lacunarity: 2
-  grassSplat:
-    texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
-    normalMap: {fileID: 0}
-    tileSize: {x: 15, y: 15}
-    tileOffset: {x: 0, y: 0}
-    metallic: 0
-    smoothness: 0
-  snowSplat:
-    texture: {fileID: 2800000, guid: 755d356ccea92fe489dcc932491b62b1, type: 3}
-    normalMap: {fileID: 0}
-    tileSize: {x: 15, y: 15}
-    tileOffset: {x: 0, y: 0}
-    metallic: 0
-    smoothness: 0
-  rockSplat:
-    texture: {fileID: 2800000, guid: 4bb192cf077c77d41b81e19a2864e169, type: 3}
-    normalMap: {fileID: 0}
-    tileSize: {x: 15, y: 15}
-    tileOffset: {x: 0, y: 0}
-    metallic: 0
-    smoothness: 0
-  snowStrength:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 0.5
-      value: 0
-      inSlope: 0
-      outSlope: 3.3333333
-      tangentMode: 21
-    - time: 0.8
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rockSteepness:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  treesSeed: 0
-  treePrefab: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
-  treesStrength:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0.062396135
-      outSlope: 0.062396135
-      tangentMode: 0
-    - time: 0.3
-      value: 0
-      inSlope: 0
-      outSlope: 2.5000002
-      tangentMode: 5
-    - time: 0.45
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 0.6
-      value: 0
-      inSlope: -1.6666666
-      outSlope: -0
-      tangentMode: 17
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  treeSizeMin: 0.5
-  treeSizeMax: 1
+  amplitude: 1
+  frequency: 6.2831855
 --- !u!1 &1252273554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +964,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1397815353}
+--- !u!114 &1408051163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4c12c4a84d5a4488306aeda2724e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noise:
+    amplitude: 1
+    seed: 0
+    frequency: 1
+    octaveCount: 8
+    persistence: 0.45
+    lacunarity: 2
 --- !u!1 &1464820456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,6 +1230,123 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1826232352}
+--- !u!114 &1833658470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mountainsGenerator:
+    heightmapNoise:
+      amplitude: 1
+      seed: 0
+      frequency: 1
+      octaveCount: 6
+      persistence: 0.45
+      lacunarity: 2
+    grassSplat:
+      texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    snowSplat:
+      texture: {fileID: 2800000, guid: 755d356ccea92fe489dcc932491b62b1, type: 3}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    rockSplat:
+      texture: {fileID: 2800000, guid: 4bb192cf077c77d41b81e19a2864e169, type: 3}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    snowStrength:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 3.3333333
+        tangentMode: 21
+      - time: 0.8
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rockSteepness:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+      - time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    treesSeed: 0
+    treePrefab: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
+    treesStrength:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: 0.062396135
+        outSlope: 0.062396135
+        tangentMode: 0
+      - time: 0.3
+        value: 0
+        inSlope: 0
+        outSlope: 2.5000002
+        tangentMode: 5
+      - time: 0.45
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - time: 0.6
+        value: 0
+        inSlope: -1.6666666
+        outSlope: -0
+        tangentMode: 17
+      - time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    treeSizeMin: 0.5
+    treeSizeMax: 1
 --- !u!1 &2064490324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,3 +1436,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2064490324}
+--- !u!114 &2142142623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008c1080860b4f249a7eabf01d55baa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHeight: 0
