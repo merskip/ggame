@@ -89,9 +89,6 @@ public class TerrainManager : MonoBehaviour {
 
     void Awake() {
         chunkMap = new Dictionary<Chunk.Coords, Chunk>();
-
-        if (generator == null)
-            generator = (TerrainGenerator) ScriptableObject.CreateInstance(typeof(PlainGenerator));
     }
 
     public Chunk.Coords ToChunkCoords(Vector3 position) {

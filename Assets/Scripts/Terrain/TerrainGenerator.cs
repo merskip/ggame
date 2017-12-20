@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public abstract class TerrainGenerator : ScriptableObject {
+public abstract class TerrainGenerator : MonoBehaviour {
 
     protected Chunk chunk;
     protected TerrainData data;

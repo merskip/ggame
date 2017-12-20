@@ -3,8 +3,9 @@ using UnityEditor;
 using System;
 using System.Text;
 
-
-class WorldEditor {
+[Serializable]
+[CustomEditor(typeof(WorldGenerator))]
+class WorldGeneratorEditor : Editor {
 
     public enum WorldTab {
         Mountains
@@ -19,20 +20,31 @@ class WorldEditor {
     public WorldTab worldTab = WorldTab.Mountains;
     public MoutainsTab mountainsTab = MoutainsTab.Heightmap;
 
+    [SerializeField]
     private WorldGenerator world;
 
-    public void Draw(WorldGenerator world) {
+    void Awake() {
+        world = (WorldGenerator)target;
+    }
+
+    public override void OnInspectorGUI() {
+        serializedObject.Update();
+
         string[] tabs = Enum.GetNames(typeof(WorldTab));
-        worldTab = (WorldTab) GUILayout.Toolbar((int) worldTab, tabs);
+        worldTab = (WorldTab)GUILayout.Toolbar((int)worldTab, tabs);
         switch (worldTab) {
             case WorldTab.Mountains:
                 DrawMountainsEditor(world.mountainsGenerator);
                 break;
         }
+
+        if (GUI.changed) {
+            EditorUtility.SetDirty(world);
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 
     private void DrawMountainsEditor(MountainsGenerator mountains) {
-
         string[] tabs = Enum.GetNames(typeof(MoutainsTab));
         mountainsTab = (MoutainsTab) GUILayout.Toolbar((int) mountainsTab, tabs);
 
