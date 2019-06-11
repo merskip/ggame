@@ -33,6 +33,8 @@ public struct Chunk {
 [Serializable]
 public class SplatPrototypeData {
 
+    public bool isFillWithColor;
+    public Color fillColor;
     public Texture2D texture;
     public Texture2D normalMap;
     public Vector2 tileSize = new Vector2(15.0f, 15.0f);
@@ -40,15 +42,29 @@ public class SplatPrototypeData {
     public float metallic = 0.0f;
     public float smoothness = 0.0f;
 
-    public SplatPrototype toSplatPrototype() {
-        var splat = new SplatPrototype();
-        splat.texture = texture;
-        splat.normalMap = normalMap;
-        splat.tileSize = tileSize;
-        splat.tileOffset = tileOffset;
-        splat.metallic = metallic;
-        splat.smoothness = smoothness;
-        return splat;
+    public SplatPrototype ToSplatPrototype() {
+        if (isFillWithColor) {
+            Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            texture.SetPixel(0, 0, fillColor);
+            texture.Apply();
+
+            return new SplatPrototype {
+                texture = texture,
+                tileSize = new Vector2(1.0f, 1.0f),
+                metallic = metallic,
+                smoothness = smoothness
+            };
+        }
+        else {
+            return new SplatPrototype {
+                texture = texture,
+                normalMap = normalMap,
+                tileSize = tileSize,
+                tileOffset = tileOffset,
+                metallic = metallic,
+                smoothness = smoothness
+            };
+        }
     }
 }
 
@@ -65,7 +81,7 @@ public class TerrainManager : MonoBehaviour {
 
     public TerrainGenerator generator;
 
-    public int resolution {
+    public int Resolution {
         get { return _resoltion; }
         set {
             float log2 = Mathf.Log(value - 1, 2);
@@ -175,15 +191,15 @@ public class TerrainManager : MonoBehaviour {
 
     private TerrainData CreateAndSetupTerrainData() {
         TerrainData data = new TerrainData();
-        data.heightmapResolution = resolution;
+        data.heightmapResolution = Resolution;
         data.size = new Vector3(chunkSize.x, chunkSize.y, chunkSize.z);
 
         if (this.defaultSplat.texture != null) {
-            SplatPrototype defaultSplat = this.defaultSplat.toSplatPrototype();
+            SplatPrototype defaultSplat = this.defaultSplat.ToSplatPrototype();
             data.splatPrototypes = new SplatPrototype[] { defaultSplat };
         }
 
-        data.alphamapResolution = resolution;
+        data.alphamapResolution = Resolution;
 
         return data;
     }

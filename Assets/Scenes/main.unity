@@ -1,19 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
-SceneSettings:
+OcclusionCullingSettings:
   m_ObjectHideFlags: 0
-  m_PVSData: 
-  m_PVSObjectsArray: []
-  m_PVSPortalsArray: []
+  serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 8
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -25,6 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -37,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.4494996, g: 0.49649495, b: 0.5591456, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 11
   m_GIWorkflowMode: 0
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,48 +54,75 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
+    m_MixedBakeMode: 1
+    m_BakeBackend: 0
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVRFilteringMode: 0
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_RuntimeCPUUsage: 25
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
+    agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    accuratePlacement: 0
     minRegionArea: 2
-    cellSize: 0.16666667
     manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &62199207
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 62199208}
-  - 222: {fileID: 62199210}
-  - 114: {fileID: 62199209}
+  - component: {fileID: 62199208}
+  - component: {fileID: 62199210}
+  - component: {fileID: 62199209}
   m_Layer: 5
   m_Name: Progress
   m_TagString: Untagged
@@ -115,6 +143,7 @@ RectTransform:
   - {fileID: 341150092}
   m_Father: {fileID: 1464820457}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -157,12 +186,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 146748611}
-  - 223: {fileID: 146748610}
-  - 114: {fileID: 146748609}
-  - 114: {fileID: 146748608}
+  - component: {fileID: 146748611}
+  - component: {fileID: 146748610}
+  - component: {fileID: 146748609}
+  - component: {fileID: 146748608}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -214,7 +243,7 @@ Canvas:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 146748607}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -222,6 +251,8 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -239,6 +270,7 @@ RectTransform:
   - {fileID: 223492486}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -249,12 +281,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 223492486}
-  - 222: {fileID: 223492488}
-  - 114: {fileID: 223492487}
-  - 114: {fileID: 223492489}
+  - component: {fileID: 223492486}
+  - component: {fileID: 223492488}
+  - component: {fileID: 223492487}
+  - component: {fileID: 223492489}
   m_Layer: 5
   m_Name: CreatorInfo
   m_TagString: Untagged
@@ -274,6 +306,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 146748611}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
@@ -336,14 +369,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 315463665}
-  - 33: {fileID: 315463664}
-  - 136: {fileID: 315463663}
-  - 143: {fileID: 315463662}
-  - 114: {fileID: 315463666}
-  - 114: {fileID: 315463667}
+  - component: {fileID: 315463665}
+  - component: {fileID: 315463664}
+  - component: {fileID: 315463663}
+  - component: {fileID: 315463662}
+  - component: {fileID: 315463666}
+  - component: {fileID: 315463667}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -401,6 +434,7 @@ Transform:
   - {fileID: 1592967549}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &315463666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,11 +469,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 341150092}
-  - 222: {fileID: 341150094}
-  - 114: {fileID: 341150093}
+  - component: {fileID: 341150092}
+  - component: {fileID: 341150094}
+  - component: {fileID: 341150093}
   m_Layer: 5
   m_Name: Bar
   m_TagString: Untagged
@@ -459,6 +493,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 62199208}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -501,11 +536,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 358032031}
-  - 114: {fileID: 358032030}
-  - 114: {fileID: 358032029}
+  - component: {fileID: 358032031}
+  - component: {fileID: 358032030}
+  - component: {fileID: 358032029}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -557,17 +592,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 146748611}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376648423
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 376648425}
-  - 114: {fileID: 376648424}
-  - 114: {fileID: 376648427}
-  - 114: {fileID: 376648426}
+  - component: {fileID: 376648425}
+  - component: {fileID: 376648424}
+  - component: {fileID: 376648427}
+  - component: {fileID: 376648426}
+  - component: {fileID: 376648428}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -587,11 +624,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkSize: {x: 512, y: 512, z: 512}
-  _resoltion: 65
+  _resoltion: 33
   pixelError: 8
   setupsNeighbors: 1
   terrainMaterial: {fileID: 2100000, guid: 9b50c5c34f6cf9349b674a198049c14f, type: 2}
   defaultSplat:
+    isFillWithColor: 0
+    fillColor: {r: 0, g: 0, b: 0, a: 0}
     texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
     normalMap: {fileID: 0}
     tileSize: {x: 16, y: 16}
@@ -611,6 +650,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &376648426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,12 +665,7 @@ MonoBehaviour:
   focus: {fileID: 315463665}
   createRange: 4
   destoryRange: 6
-  activeGenerator: 3
-  generators:
-  - {fileID: 2142142623}
-  - {fileID: 972625207}
-  - {fileID: 1408051163}
-  - {fileID: 1833658470}
+  terrainGenerator: {fileID: 376648428}
 --- !u!114 &376648427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,18 +680,116 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   hideTreesAndFoliage: 1
   hideHeightmap: 1
+--- !u!114 &376648428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 376648423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mountainsGenerator:
+    heightmapNoise:
+      amplitude: 1
+      seed: 0
+      frequency: 1
+      octaveCount: 8
+      persistence: 0.45
+      lacunarity: 2
+    grassSplat:
+      isFillWithColor: 1
+      fillColor: {r: 0.6745098, g: 0.7411765, b: 0.29411766, a: 0}
+      texture: {fileID: 0}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    snowSplat:
+      isFillWithColor: 1
+      fillColor: {r: 1, g: 1, b: 1, a: 0}
+      texture: {fileID: 0}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    rockSplat:
+      isFillWithColor: 1
+      fillColor: {r: 0.6313726, g: 0.5647059, b: 0.52156866, a: 0}
+      texture: {fileID: 0}
+      normalMap: {fileID: 0}
+      tileSize: {x: 15, y: 15}
+      tileOffset: {x: 0, y: 0}
+      metallic: 0
+      smoothness: 0
+    snowStrength:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0.5
+        value: 0
+        inSlope: 8.867751
+        outSlope: 8.867751
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.75
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rockSteepness:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    treesSeed: 0
+    treePrefab: {fileID: 100006, guid: c893dfb257e2f8a449c0b07e24d2cac4, type: 3}
+    treesStrength:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.51852375
+        value: 0.43551838
+        inSlope: 0.28789043
+        outSlope: 0.28789043
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9666748
+        value: 0.043750763
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    treeSizeMin: 0.5
+    treeSizeMax: 1
 --- !u!1 &456385565
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 456385569}
-  - 223: {fileID: 456385568}
-  - 222: {fileID: 456385567}
-  - 114: {fileID: 456385566}
-  - 225: {fileID: 456385570}
+  - component: {fileID: 456385569}
+  - component: {fileID: 456385568}
+  - component: {fileID: 456385567}
+  - component: {fileID: 456385566}
+  - component: {fileID: 456385570}
   m_Layer: 5
   m_Name: LoadingCanvas
   m_TagString: Untagged
@@ -703,7 +836,7 @@ Canvas:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456385565}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -711,6 +844,8 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -728,6 +863,7 @@ RectTransform:
   - {fileID: 2064490325}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -749,11 +885,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 917830422}
-  - 222: {fileID: 917830424}
-  - 114: {fileID: 917830423}
+  - component: {fileID: 917830422}
+  - component: {fileID: 917830424}
+  - component: {fileID: 917830423}
   m_Layer: 5
   m_Name: Counter
   m_TagString: Untagged
@@ -773,6 +909,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1464820457}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -2}
@@ -817,28 +954,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 917830421}
---- !u!114 &972625207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 462825e26ba01314f87451f6bde81067, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amplitude: 1
-  frequency: 6.2831855
 --- !u!1 &1252273554
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1252273556}
-  - 108: {fileID: 1252273555}
+  - component: {fileID: 1252273556}
+  - component: {fileID: 1252273555}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -853,7 +977,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1252273554}
   m_Enabled: 1
-  serializedVersion: 6
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 0.5
@@ -863,6 +987,7 @@ Light:
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
+    m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
@@ -875,10 +1000,12 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!4 &1252273556
 Transform:
   m_ObjectHideFlags: 0
@@ -891,16 +1018,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1397815353
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1397815354}
-  - 222: {fileID: 1397815356}
-  - 114: {fileID: 1397815355}
+  - component: {fileID: 1397815354}
+  - component: {fileID: 1397815356}
+  - component: {fileID: 1397815355}
   m_Layer: 5
   m_Name: Author
   m_TagString: Untagged
@@ -920,6 +1048,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2064490325}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: -5}
@@ -964,33 +1093,15 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1397815353}
---- !u!114 &1408051163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4c12c4a84d5a4488306aeda2724e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noise:
-    amplitude: 1
-    seed: 0
-    frequency: 1
-    octaveCount: 8
-    persistence: 0.45
-    lacunarity: 2
 --- !u!1 &1464820456
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1464820457}
-  - 114: {fileID: 1464820458}
+  - component: {fileID: 1464820457}
+  - component: {fileID: 1464820458}
   m_Layer: 5
   m_Name: LoadingPanel
   m_TagString: Untagged
@@ -1013,6 +1124,7 @@ RectTransform:
   - {fileID: 917830422}
   m_Father: {fileID: 456385569}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1044,14 +1156,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1592967549}
-  - 20: {fileID: 1592967548}
-  - 92: {fileID: 1592967547}
-  - 124: {fileID: 1592967546}
-  - 81: {fileID: 1592967545}
-  - 114: {fileID: 1592967550}
+  - component: {fileID: 1592967549}
+  - component: {fileID: 1592967548}
+  - component: {fileID: 1592967547}
+  - component: {fileID: 1592967546}
+  - component: {fileID: 1592967545}
+  - component: {fileID: 1592967550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1110,10 +1222,12 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1592967549
 Transform:
   m_ObjectHideFlags: 0
@@ -1126,6 +1240,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 315463665}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1592967550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,11 +1275,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1826232353}
-  - 222: {fileID: 1826232355}
-  - 114: {fileID: 1826232354}
+  - component: {fileID: 1826232353}
+  - component: {fileID: 1826232355}
+  - component: {fileID: 1826232354}
   m_Layer: 5
   m_Name: GenerateLabel
   m_TagString: Untagged
@@ -1184,6 +1299,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1464820457}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1230,134 +1346,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1826232352}
---- !u!114 &1833658470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a58501dda1dc3b64299a23a4878a26e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mountainsGenerator:
-    heightmapNoise:
-      amplitude: 1
-      seed: 0
-      frequency: 1
-      octaveCount: 6
-      persistence: 0.45
-      lacunarity: 2
-    grassSplat:
-      texture: {fileID: 2800000, guid: ced575bd82487ee4b9e20e58f8d8f7a0, type: 3}
-      normalMap: {fileID: 0}
-      tileSize: {x: 15, y: 15}
-      tileOffset: {x: 0, y: 0}
-      metallic: 0
-      smoothness: 0
-    snowSplat:
-      texture: {fileID: 2800000, guid: 755d356ccea92fe489dcc932491b62b1, type: 3}
-      normalMap: {fileID: 0}
-      tileSize: {x: 15, y: 15}
-      tileOffset: {x: 0, y: 0}
-      metallic: 0
-      smoothness: 0
-    rockSplat:
-      texture: {fileID: 2800000, guid: 4bb192cf077c77d41b81e19a2864e169, type: 3}
-      normalMap: {fileID: 0}
-      tileSize: {x: 15, y: 15}
-      tileOffset: {x: 0, y: 0}
-      metallic: 0
-      smoothness: 0
-    snowStrength:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - time: 0.5
-        value: 0
-        inSlope: 0
-        outSlope: 3.3333333
-        tangentMode: 21
-      - time: 0.8
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    rockSteepness:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    treesSeed: 0
-    treePrefab: {fileID: 100016, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
-    treesStrength:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 0.062396135
-        outSlope: 0.062396135
-        tangentMode: 0
-      - time: 0.3
-        value: 0
-        inSlope: 0
-        outSlope: 2.5000002
-        tangentMode: 5
-      - time: 0.45
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - time: 0.6
-        value: 0
-        inSlope: -1.6666666
-        outSlope: -0
-        tangentMode: 17
-      - time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    treeSizeMin: 0.5
-    treeSizeMax: 1
 --- !u!1 &2064490324
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 2064490325}
-  - 222: {fileID: 2064490328}
-  - 114: {fileID: 2064490327}
-  - 114: {fileID: 2064490326}
+  - component: {fileID: 2064490325}
+  - component: {fileID: 2064490328}
+  - component: {fileID: 2064490327}
+  - component: {fileID: 2064490326}
   m_Layer: 5
   m_Name: Quote
   m_TagString: Untagged
@@ -1378,6 +1377,7 @@ RectTransform:
   - {fileID: 1397815354}
   m_Father: {fileID: 456385569}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -35, y: 35}
@@ -1436,15 +1436,3 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2064490324}
---- !u!114 &2142142623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008c1080860b4f249a7eabf01d55baa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHeight: 0

@@ -50,23 +50,11 @@ public class MountainsGenerator : WorldTerrainGenerator {
     }
 
     private void SetupSplats() {
-        if (grassSplat.texture == null)
-            return;
-
-        SplatPrototype[] splats = new SplatPrototype[1];
-        splats[0] = grassSplat.toSplatPrototype();
-
-        if (snowSplat.texture !=  null) {
-            Array.Resize(ref splats, 2);
-            splats[1] = snowSplat.toSplatPrototype();
-        }
-
-        if (rockSplat.texture != null & splats.Length == 2) {
-            Array.Resize(ref splats, 3);
-            splats[2] = rockSplat.toSplatPrototype();
-        }
-        
-        data.splatPrototypes = splats;
+        data.splatPrototypes = new SplatPrototype[] {
+            grassSplat.ToSplatPrototype(),
+            snowSplat.ToSplatPrototype(),
+            rockSplat.ToSplatPrototype()
+        };
         alphamap = data.GetAlphamaps(0, 0, width, height);
     }
 
